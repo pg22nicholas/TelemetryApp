@@ -10,8 +10,7 @@ Copyright (c) 2018. Scott Henshaw, Kibble Online Inc. All Rights Reserved.
     <aside id="sidebar-wrapper" class="grid-side area vue-component">
         <div id="sidebar-container" class="sidebar flexbox">
             <div class="side-item">
-                <h2>{{ title }}</h2>
-                <h4>{{ description }}</h4>
+                <h4>{{ title }}</h4>
             </div>
             <pg-navbar></pg-navbar>
             <slot></slot>
@@ -29,9 +28,10 @@ Copyright (c) 2018. Scott Henshaw, Kibble Online Inc. All Rights Reserved.
         constructor( name, subComponentList = []) {
             super( name, subComponentList );
             this.vm = {
-                title:       "My Sidebar",
                 description: "Application Name"
             }
+
+            this.injectGetters(['title'])
         }
     }
 
