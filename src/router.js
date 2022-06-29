@@ -14,7 +14,7 @@ import About from '@/routes/About.vue'
 
 export default new Router({
     routes: [
-        { path:"/",     name:"Root", component: About },
+        { path:"/",     name:"About", component: About },
         { path:"/home", name:"Home", component: Home, props: { name: "DemoApp"} },
     ]
 });
