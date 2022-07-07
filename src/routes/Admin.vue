@@ -11,16 +11,29 @@ Copyright (c) 2018. Scott Henshaw, Kibble Online Inc. All Rights Reserved.
         <div class="home">
             <h4>Admin</h4>
             <div class="dialog">
-
-                <form class="sample-form">
+                <form class="sample-form" @submit.prevent="saveIt( formData )">
                     <label>Sample field
-                        <input name="s1" v-model="formData.sampleOne">
+                        <input name="id" v-model="formData.id">
                     </label><br/>
-                    <label>Number field:
-                        <input name="s2" v-model="formData.sampleTwo">
-                    </label><br/>
-                    <button value="Submit" class="">Submit</button>
+
+                    <label for="version">Version:</label>
+                    <input id="version" name="version"
+                           v-model="formData.version"><br/>
+
+                    <label for="sessionId">sessionId:</label>
+                    <input id="sessionId" name="sessionId"
+                           v-model="formData.sessionId"><br/>
+
+                    <label for="eventId">Version:</label>
+                    <input id="eventId" name="eventId"
+                           v-model="formData.eventId"><br/>
+
+                    <button value="Submit" class="">Save</button>
                 </form>
+
+                <div>
+                    <!-- Dynamcally create a list of records -->
+                </div>
 
             </div>
         </div>
@@ -31,19 +44,25 @@ Copyright (c) 2018. Scott Henshaw, Kibble Online Inc. All Rights Reserved.
 
     import Controller from '@/mixins/controller'
 
+    import { rec } from '@/store/TData.js'
+
     class HomeController extends Controller {
 
         constructor( name, subComponentList = []) {
             super( name, subComponentList );
             this.vm = {
-                formData: {
-                    sampleOne:"",
-                    sampleTwo:42,
-                }
+                formData: rec,
             }
             this.props = {
                 name: String,
             }
+
+            this.injectGetters(['singleRec']);
+            this.injectActions(['updateSingle'])
+        }
+
+        saveIt( formData ) {
+            this.updateSingle( formData );
         }
     }
 
