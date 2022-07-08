@@ -36,9 +36,9 @@ export default class TData {
     static generateRecordList() {
         let result = []
         for (let i = 0; i < 10; i++) {
-            let rec = new TData()
-            rec.id = i;
-            result.push(rec)
+            let data = {...new TData().rec }
+            data.id = i;
+            result.push(data)
         }
         return result
     }
