@@ -31,12 +31,12 @@ Copyright (c) 2022 Nicholas Johnson
             super( name, subComponentList );
 
             this.vm = {
-                recordData: ""
+                recordData: {}
             }
         }
 
         recordSelected(record) {
-            this.recordData = JSON.stringify(record)
+            this.recordData = record
         }
     }
 

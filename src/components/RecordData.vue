@@ -4,11 +4,7 @@ Copyright (c) 2022 Nicholas Johnson
 <template>
 
     <section class="container">
-        
-            <div class="record-data">
-                {{ recordData }}
-            </div>
-
+        <pre class="record-data">{{ formatRecordJSON(recordData) }}</pre>
     </section>
 
 </template>
@@ -26,10 +22,17 @@ Copyright (c) 2022 Nicholas Johnson
             }
 
             this.props = {
-                recordData: String,
+                recordData: Object,
             }
 
             this.injectGetters(['recordList']);
+        }
+
+        formatRecordJSON(record) {
+            let stringToDisplay = JSON.stringify(record, null, 4)
+            stringToDisplay.slice(0, 1)
+            stringToDisplay.slice(stringToDisplay.length - 1, 1)
+            return stringToDisplay
         }
     }
 
@@ -45,6 +48,9 @@ Copyright (c) 2022 Nicholas Johnson
     }
 
     .record-data {
+        height: 100%;
+        margin-left: 20px;
+        margin-top: 10px;
     }
 
     button {
