@@ -5,6 +5,10 @@ Copyright (c) 2022 Nicholas Johnson
 
     <section class="container">
         
+            <div id="filter-container">
+                <input type="text" id="search-bar" v-model="searchText" @change="newSearchInput()" />
+                <button id="filter"></button>
+            </div>
             <div class="record-list">
                 <div    @click="selectRecord(index)" 
                         v-bind:class="checkRecordSelection(index)" 
@@ -27,6 +31,7 @@ Copyright (c) 2022 Nicholas Johnson
 
             this.vm = {
                 selectedRecordIndex: 0,
+                searchText: "",
             }
 
             this.injectGetters(['recordList']);
@@ -43,17 +48,42 @@ Copyright (c) 2022 Nicholas Johnson
             }
             return 'unselected'
         }
+
+        newSearchInput() {
+            console.log("New String: " + this.searchText)
+        }
     }
 
     export default new RecordListController('pgRecordList');
 
 </script>
 <style scoped>
-    /* Local styles for this template */
+    
     .container {
         display: inline-block;
         height: 100%;
         width: 100%;
+    }
+
+    #filter-container {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        height: fit-content;
+        padding: .2em;
+    }
+    
+    #search-bar {
+        border-style: solid;
+        border-width: 1px;
+        width: 100%;
+        height: 100%;
+        flex-grow: 1;
+        margin-right: 5px;
+    }
+
+    #filter {
+        width: .7vw;
     }
 
     .record-list {
@@ -67,11 +97,5 @@ Copyright (c) 2022 Nicholas Johnson
 
     .unselected {
         background-color: white;
-    }
-
-    button {
-        padding: .5em;
-        margin: .25em;
-        padding-bottom: 1.5em;
     }
 </style>
