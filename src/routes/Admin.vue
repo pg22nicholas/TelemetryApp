@@ -3,16 +3,18 @@ Copyright (c) 2022 Nicholas Johnson
 -->
 <template>
 
-    <section class="home-container">
-        <div class="home">
-            <h4>Admin</h4>
+    <section id="home-container">
+        <div id="home">
 
-            <div class="record-container">      
-                <record-list @record-selected="recordSelected"></record-list>
-                <record-data :record-data="recordData"></record-data>
+            <div id="record-container">  
+                <div id="record-list-container">
+                    <record-list @record-selected="recordSelected"></record-list>
+                </div>    
+                <div id="record-data-container">
+                    <record-data :record-data="recordData"></record-data>
+                </div>
             </div>
             
-
         </div>
     </section>
 
@@ -43,12 +45,12 @@ Copyright (c) 2022 Nicholas Johnson
 </script>
 <style scoped>
     /* Local styles for this template */
-    .home-container {
+    #home-container {
         display: inline-block;
         width: 100%;
     }
 
-    .home {
+    #home {
         margin:2vw;
         border: 1px solid black;
         background-color: lightgray;
@@ -67,6 +69,23 @@ Copyright (c) 2022 Nicholas Johnson
         font-size: 1.2em;
         font-weight: 700;
         height: 1.4em;
+    }
+
+    #record-container {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+    }
+
+    #record-list-container {
+        height: 100%;
+        width: 14vw;
+    }
+
+    #record-data-container {
+        height: 100%;
+        flex-grow: 1;
     }
 
     button {

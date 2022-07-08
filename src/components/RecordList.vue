@@ -52,6 +52,7 @@ Copyright (c) 2022 Nicholas Johnson
     /* Local styles for this template */
     .container {
         display: inline-block;
+        height: 100%;
         width: 100%;
     }
 
