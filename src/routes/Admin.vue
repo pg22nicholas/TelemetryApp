@@ -11,7 +11,7 @@ Copyright (c) 2018. Scott Henshaw, Kibble Online Inc. All Rights Reserved.
         <div class="home">
             <h4>Admin</h4>
             <div class="record-list">
-                <div v-for="record in recs" :value="record" :key="record.id">{{record.id}}</div>
+                <div v-for="record in recordList" :value="record" :key="record.id">{{record.id}}</div>
             </div>
 
                 <!-- <form class="sample-form" @submit.prevent="saveIt( formData )">
@@ -55,9 +55,7 @@ Copyright (c) 2018. Scott Henshaw, Kibble Online Inc. All Rights Reserved.
             super( name, subComponentList );
 
             this.vm = {
-                formData: rec,
                 selectedRecord: 0,
-                recs: TData.generateRecordList(),
             }
 
             this.injectGetters(['recordList']);

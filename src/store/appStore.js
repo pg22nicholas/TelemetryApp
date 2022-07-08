@@ -20,7 +20,7 @@ export default {
         appTitle: "Game Telemetry Viewer",
         actionData: {},
         rec: new TData(), // TODO: convert to list of records
-        recs: TData.generateRecs(),
+        recordList: TData.generateRecordList(),
     },
 
     // PUBLIC: injected into components
@@ -30,6 +30,7 @@ export default {
         theInfo: state => state.actionData.info,
  
         singleRec: state => state.rec,  // TODO: Should be a list of records
+        recordList: state => state.recordList,
     },
 
     // PUBLIC: injected into components
@@ -38,7 +39,7 @@ export default {
 
         updateSingle( { commit }, rec ) {
 
-            commit('UPDATE_REC', rec );
+            commit('UPDATE_RECORD', rec );
         },
 
         doAction({ commit }, params ) {
@@ -66,7 +67,7 @@ export default {
     // PRIVATE: caled by actions to modify the state to prevent deadlock
     mutations: {
         SET_USER: ( state, info ) => { state.actionData.info = info },
-        UPDATE_REC: ( state, rec ) => { state.rec = rec },
+        UPDATE_RECORD: ( state, rec ) => { state.rec = rec },
     },
 
 }

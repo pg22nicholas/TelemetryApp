@@ -33,7 +33,7 @@ export default class TData {
     }
 
     // generate a list of recs for testing
-    static generateRecs() {
+    static generateRecordList() {
         let result = []
         for (let i = 0; i < 10; i++) {
             let rec = new TData()
