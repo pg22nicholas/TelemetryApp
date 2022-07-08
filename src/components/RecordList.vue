@@ -7,7 +7,7 @@ Copyright (c) 2022 Nicholas Johnson
         
             <div class="record-list">
                 <div    @click="selectRecord(index)" 
-                        v-bind:class="(selectedRecord == index ? 'selected' : 'unselected')" 
+                        v-bind:class="checkRecordSelection(index)" 
                         v-for="(record, index) in recordList" :value="record" :key="record.id">
                     {{record.id}}
                 </div>
@@ -26,15 +26,22 @@ Copyright (c) 2022 Nicholas Johnson
             super( name, subComponentList );
 
             this.vm = {
-                selectedRecord: 0,
+                selectedRecordIndex: 0,
             }
 
             this.injectGetters(['recordList']);
         }
 
         selectRecord(index) {
-            this.$emit('record-selected', this.recordList[index])
-            this.selectedRecord = index
+            this.selectedRecordIndex = index
+        }
+
+        checkRecordSelection(index) {
+            if (index == this.selectedRecordIndex) {
+                this.$emit('record-selected', this.recordList[index])
+                return 'selected'
+            }
+            return 'unselected'
         }
     }
 

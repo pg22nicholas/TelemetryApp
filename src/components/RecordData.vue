@@ -15,7 +15,6 @@ Copyright (c) 2022 Nicholas Johnson
 <script>
 
     import Controller from '@/mixins/controller'
-import { stringify } from 'querystring';
 
     class RecordListController extends Controller {
 
