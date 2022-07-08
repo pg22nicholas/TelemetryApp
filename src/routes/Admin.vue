@@ -1,22 +1,14 @@
 <!--
-VFS VUE Single File Component
-
-<pg-home user="User"></pg-home>
-
-Copyright (c) 2018. Scott Henshaw, Kibble Online Inc. All Rights Reserved.
+Copyright (c) 2022 Nicholas Johnson
 -->
 <template>
 
     <section class="home-container">
         <div class="home">
             <h4>Admin</h4>
-            <div class="record-list">
-                <div    @click="selectRecord(index)" 
-                        v-bind:class="(selectedRecord == index ? 'selected' : 'unselected')" 
-                        v-for="(record, index) in recordList" :value="record" :key="record.id">
-                    {{record.id}}
-                </div>
-            </div>
+
+            <record-list/>
+
         </div>
     </section>
 
@@ -24,6 +16,7 @@ Copyright (c) 2018. Scott Henshaw, Kibble Online Inc. All Rights Reserved.
 <script>
 
     import Controller from '@/mixins/controller'
+    import RecordList from '@/components/RecordList.vue'
 
     class HomeController extends Controller {
 
@@ -31,18 +24,12 @@ Copyright (c) 2018. Scott Henshaw, Kibble Online Inc. All Rights Reserved.
             super( name, subComponentList );
 
             this.vm = {
-                selectedRecord: 0,
+                
             }
-
-            this.injectGetters(['recordList']);
-        }
-
-        selectRecord(index) {
-            this.selectedRecord = index
         }
     }
 
-    export default new HomeController('pgHome');
+    export default new HomeController('pgHome', { RecordList });
 
 </script>
 <style scoped>
@@ -50,11 +37,6 @@ Copyright (c) 2018. Scott Henshaw, Kibble Online Inc. All Rights Reserved.
     .home-container {
         display: inline-block;
         width: 100%;
-    }
-
-    .record-list {
-        display: flex;
-        flex-direction: column;
     }
 
     .home {
@@ -76,14 +58,6 @@ Copyright (c) 2018. Scott Henshaw, Kibble Online Inc. All Rights Reserved.
         font-size: 1.2em;
         font-weight: 700;
         height: 1.4em;
-    }
-
-    .selected {
-        background-color: rgb(191, 158, 221);
-    }
-
-    .unselected {
-        background-color: white;
     }
 
     button {
