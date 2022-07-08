@@ -10,8 +10,11 @@ Copyright (c) 2018. Scott Henshaw, Kibble Online Inc. All Rights Reserved.
     <section class="home-container">
         <div class="home">
             <h4>Admin</h4>
-            <div class="dialog">
-                <form class="sample-form" @submit.prevent="saveIt( formData )">
+            <div class="record-list">
+                <div v-for="record in recs" :value="record" :key="record.id">{{record.id}}</div>
+            </div>
+
+                <!-- <form class="sample-form" @submit.prevent="saveIt( formData )">
                     <label>Sample field
                         <input name="id" v-model="formData.id">
                     </label><br/>
@@ -29,13 +32,12 @@ Copyright (c) 2018. Scott Henshaw, Kibble Online Inc. All Rights Reserved.
                            v-model="formData.eventId"><br/>
 
                     <button value="Submit" class="">Save</button>
-                </form>
+                </form> -->
 
                 <div>
                     <!-- Dynamcally create a list of records -->
                 </div>
 
-            </div>
         </div>
     </section>
 
@@ -44,25 +46,21 @@ Copyright (c) 2018. Scott Henshaw, Kibble Online Inc. All Rights Reserved.
 
     import Controller from '@/mixins/controller'
 
+    import TData from '@/store/TData.js'
     import { rec } from '@/store/TData.js'
 
     class HomeController extends Controller {
 
         constructor( name, subComponentList = []) {
             super( name, subComponentList );
+
             this.vm = {
                 formData: rec,
-            }
-            this.props = {
-                name: String,
+                selectedRecord: 0,
+                recs: TData.generateRecordList(),
             }
 
-            this.injectGetters(['singleRec']);
-            this.injectActions(['updateSingle'])
-        }
-
-        saveIt( formData ) {
-            this.updateSingle( formData );
+            this.injectGetters(['recordList']);
         }
     }
 
@@ -74,6 +72,11 @@ Copyright (c) 2018. Scott Henshaw, Kibble Online Inc. All Rights Reserved.
     .home-container {
         display: inline-block;
         width: 100%;
+    }
+
+    .record-list {
+        display: flex;
+        flex-direction: column;
     }
 
     .home {
