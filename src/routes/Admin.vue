@@ -7,7 +7,11 @@ Copyright (c) 2022 Nicholas Johnson
         <div class="home">
             <h4>Admin</h4>
 
-            <record-list/>
+            <div class="record-container">      
+                <record-list @record-selected="recordSelected"></record-list>
+                <record-data :record-data="recordData"></record-data>
+            </div>
+            
 
         </div>
     </section>
@@ -17,6 +21,7 @@ Copyright (c) 2022 Nicholas Johnson
 
     import Controller from '@/mixins/controller'
     import RecordList from '@/components/RecordList.vue'
+    import RecordData from '@/components/RecordData.vue'
 
     class HomeController extends Controller {
 
@@ -24,12 +29,16 @@ Copyright (c) 2022 Nicholas Johnson
             super( name, subComponentList );
 
             this.vm = {
-                
+                recordData: ""
             }
+        }
+
+        recordSelected(record) {
+            this.recordData = JSON.stringify(record)
         }
     }
 
-    export default new HomeController('pgHome', { RecordList });
+    export default new HomeController('pgHome', { RecordList, RecordData });
 
 </script>
 <style scoped>

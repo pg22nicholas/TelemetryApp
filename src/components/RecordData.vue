@@ -5,12 +5,8 @@ Copyright (c) 2022 Nicholas Johnson
 
     <section class="container">
         
-            <div class="record-list">
-                <div    @click="selectRecord(index)" 
-                        v-bind:class="(selectedRecord == index ? 'selected' : 'unselected')" 
-                        v-for="(record, index) in recordList" :value="record" :key="record.id">
-                    {{record.id}}
-                </div>
+            <div class="record-data">
+                {{ recordData }}
             </div>
 
     </section>
@@ -19,6 +15,7 @@ Copyright (c) 2022 Nicholas Johnson
 <script>
 
     import Controller from '@/mixins/controller'
+import { stringify } from 'querystring';
 
     class RecordListController extends Controller {
 
@@ -29,12 +26,11 @@ Copyright (c) 2022 Nicholas Johnson
                 selectedRecord: 0,
             }
 
-            this.injectGetters(['recordList']);
-        }
+            this.props = {
+                recordData: String,
+            }
 
-        selectRecord(index) {
-            this.$emit('record-selected', this.recordList[index])
-            this.selectedRecord = index
+            this.injectGetters(['recordList']);
         }
     }
 
@@ -48,17 +44,7 @@ Copyright (c) 2022 Nicholas Johnson
         width: 100%;
     }
 
-    .record-list {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .selected {
-        background-color: rgb(191, 158, 221);
-    }
-
-    .unselected {
-        background-color: white;
+    .record-data {
     }
 
     button {
