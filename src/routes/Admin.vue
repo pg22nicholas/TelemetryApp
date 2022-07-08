@@ -11,33 +11,12 @@ Copyright (c) 2018. Scott Henshaw, Kibble Online Inc. All Rights Reserved.
         <div class="home">
             <h4>Admin</h4>
             <div class="record-list">
-                <div v-for="record in recordList" :value="record" :key="record.id">{{record.id}}</div>
-            </div>
-
-                <!-- <form class="sample-form" @submit.prevent="saveIt( formData )">
-                    <label>Sample field
-                        <input name="id" v-model="formData.id">
-                    </label><br/>
-
-                    <label for="version">Version:</label>
-                    <input id="version" name="version"
-                           v-model="formData.version"><br/>
-
-                    <label for="sessionId">sessionId:</label>
-                    <input id="sessionId" name="sessionId"
-                           v-model="formData.sessionId"><br/>
-
-                    <label for="eventId">Version:</label>
-                    <input id="eventId" name="eventId"
-                           v-model="formData.eventId"><br/>
-
-                    <button value="Submit" class="">Save</button>
-                </form> -->
-
-                <div>
-                    <!-- Dynamcally create a list of records -->
+                <div    @click="selectRecord(index)" 
+                        v-bind:class="(selectedRecord == index ? 'selected' : 'unselected')" 
+                        v-for="(record, index) in recordList" :value="record" :key="record.id">
+                    {{record.id}}
                 </div>
-
+            </div>
         </div>
     </section>
 
@@ -45,9 +24,6 @@ Copyright (c) 2018. Scott Henshaw, Kibble Online Inc. All Rights Reserved.
 <script>
 
     import Controller from '@/mixins/controller'
-
-    import TData from '@/store/TData.js'
-    import { rec } from '@/store/TData.js'
 
     class HomeController extends Controller {
 
@@ -59,6 +35,10 @@ Copyright (c) 2018. Scott Henshaw, Kibble Online Inc. All Rights Reserved.
             }
 
             this.injectGetters(['recordList']);
+        }
+
+        selectRecord(index) {
+            this.selectedRecord = index
         }
     }
 
@@ -96,6 +76,14 @@ Copyright (c) 2018. Scott Henshaw, Kibble Online Inc. All Rights Reserved.
         font-size: 1.2em;
         font-weight: 700;
         height: 1.4em;
+    }
+
+    .selected {
+        background-color: rgb(191, 158, 221);
+    }
+
+    .unselected {
+        background-color: white;
     }
 
     button {
