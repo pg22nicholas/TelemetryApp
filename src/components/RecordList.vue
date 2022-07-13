@@ -15,7 +15,9 @@ Copyright (c) 2022 Nicholas Johnson
                         v-for="(record, id) in recordList" :value="record" :key="record.id">
                         <div class="record-row">
                             <div class="record-info" @click="selectRecord(id)" >{{record.id + "\n" + record.version}}</div>
-                            <button @click="deleteRecord(id)" class="delete-record-button"></button>
+                            <button @click="deleteRecord(id)" class="delete-record-button">
+                                <div class="delete-button-text">-</div>
+                            </button>
                         </div>
                 </div>
             </div>
@@ -68,9 +70,12 @@ Copyright (c) 2022 Nicholas Johnson
 <style scoped>
     
     .container {
-        display: inline-block;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
         height: 100%;
-        width: 100%;
+        width: 20vw;
     }
 
     #filter-container {
@@ -97,6 +102,9 @@ Copyright (c) 2022 Nicholas Johnson
     .record-list {
         display: flex;
         flex-direction: column;
+        width: 100%;
+        flex-grow: 1;
+        background-color: white;
     }
 
     .record-row {
@@ -105,11 +113,20 @@ Copyright (c) 2022 Nicholas Johnson
         width: 100%;
         height: 35px;
         padding: 5px;
+        justify-content: center;
     }
 
     .delete-record-button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
         width: 50px;
         height: 100%;
+    }
+
+    .delete-button-text {
+        width: fit-content;
+        height: fit-content;
     }
 
     .record-info {

@@ -80,7 +80,7 @@ Copyright (c) 2022 Nicholas Johnson
 
     #record-list-container {
         height: 100%;
-        width: 14vw;
+        width: fit-content;
     }
 
     #record-data-container {
