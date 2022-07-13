@@ -13,7 +13,7 @@ const FileSystem = require('fs-extra')
 
 const Result = require('../src/mixins/result')
 
-const TelemetryData = require('./tdata')
+const TelemetryData = require('./recordRoute.js')
 
 const PORT = 5000;
 
