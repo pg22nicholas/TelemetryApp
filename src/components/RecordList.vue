@@ -13,7 +13,10 @@ Copyright (c) 2022 Nicholas Johnson
                 <div    @click="selectRecord(index)" 
                         v-bind:class="checkRecordSelection(index)" 
                         v-for="(record, index) in recordList" :value="record" :key="record.id">
-                    {{record.id}}
+                        <div class="record-row">
+                            <div class="record-info">{{record.id + "\n" + record.version}}</div>
+                            <button @click="deleteRecord(index)" class="delete-record-button"></button>
+                        </div>
                 </div>
             </div>
 
@@ -35,6 +38,7 @@ Copyright (c) 2022 Nicholas Johnson
             }
 
             this.injectGetters(['recordList']);
+            this.injectActions(['deleteRecordFromStore'])
         }
 
         selectRecord(index) {
@@ -47,6 +51,13 @@ Copyright (c) 2022 Nicholas Johnson
                 return 'selected'
             }
             return 'unselected'
+        }
+
+        deleteRecord(index) {
+            this.deleteRecordFromStore(index)
+            if (index == this.selectedRecordIndex) {
+                if (this.selectedRecordIndex > 0) this.selectedRecordIndex--
+            }
         }
 
         newSearchInput() {
@@ -89,6 +100,23 @@ Copyright (c) 2022 Nicholas Johnson
     .record-list {
         display: flex;
         flex-direction: column;
+    }
+
+    .record-row {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        height: 35px;
+        padding: 5px;
+    }
+
+    .delete-record-button {
+        width: 50px;
+        height: 100%;
+    }
+
+    .record-info {
+        flex-grow: 1;
     }
 
     .selected {

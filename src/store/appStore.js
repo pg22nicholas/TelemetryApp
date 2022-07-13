@@ -39,7 +39,10 @@ export default {
 
         updateSingle( { commit }, rec ) {
 
-            commit('UPDATE_RECORD', rec );
+            commit('UPDATE_RECORD', rec )
+        },
+        deleteRecordFromStore( {commit }, index) {
+            commit('DELETE_RECORD', index)
         },
 
         doAction({ commit }, params ) {
@@ -68,6 +71,9 @@ export default {
     mutations: {
         SET_USER: ( state, info ) => { state.actionData.info = info },
         UPDATE_RECORD: ( state, rec ) => { state.rec = rec },
+        DELETE_RECORD: ( state, index ) => {
+            Vue.delete(state.recordList, index)
+        }
     },
 
 }
