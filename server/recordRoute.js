@@ -51,6 +51,11 @@ Router.post('/record', ( request, response, next ) => {
     */
     const params = { ...request.params, ... request.query, ...request.body };
 
+    // prevent adding record if incorrect structure
+    if (!params.record) {
+        return response.status(402).end()
+    }
+
     let id = TDataRec.getNewIndex()
     recordList[id] = params.record
 
