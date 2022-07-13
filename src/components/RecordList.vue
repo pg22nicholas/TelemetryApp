@@ -20,6 +20,7 @@ Copyright (c) 2022 Nicholas Johnson
                             </button>
                         </div>
                 </div>
+                <button id="load-new-page-button">New Records</button>
             </div>
 
     </section>
@@ -105,6 +106,7 @@ Copyright (c) 2022 Nicholas Johnson
         width: 100%;
         flex-grow: 1;
         background-color: white;
+        overflow-y: scroll;
     }
 
     .record-row {
@@ -122,6 +124,11 @@ Copyright (c) 2022 Nicholas Johnson
         align-items: center;
         width: 50px;
         height: 100%;
+    }
+
+    #load-new-page-button {
+        width: 100%;
+        height: 35px;
     }
 
     .delete-button-text {
