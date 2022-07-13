@@ -10,12 +10,12 @@ Copyright (c) 2022 Nicholas Johnson
                 <button id="filter"></button>
             </div>
             <div class="record-list">
-                <div    @click="selectRecord(index)" 
-                        v-bind:class="checkRecordSelection(index)" 
-                        v-for="(record, index) in recordList" :value="record" :key="record.id">
+                <div    
+                        v-bind:class="checkRecordSelection(id)" 
+                        v-for="(record, id) in recordList" :value="record" :key="record.id">
                         <div class="record-row">
-                            <div class="record-info">{{record.id + "\n" + record.version}}</div>
-                            <button @click="deleteRecord(index)" class="delete-record-button"></button>
+                            <div class="record-info" @click="selectRecord(id)" >{{record.id + "\n" + record.version}}</div>
+                            <button @click="deleteRecord(id)" class="delete-record-button"></button>
                         </div>
                 </div>
             </div>
@@ -33,7 +33,7 @@ Copyright (c) 2022 Nicholas Johnson
             super( name, subComponentList );
 
             this.vm = {
-                selectedRecordIndex: 0,
+                selectedRecordId: 0,
                 searchText: "",
             }
 
@@ -41,23 +41,20 @@ Copyright (c) 2022 Nicholas Johnson
             this.injectActions(['deleteRecordFromStore'])
         }
 
-        selectRecord(index) {
-            this.selectedRecordIndex = index
+        selectRecord(id) {
+            this.selectedRecordId = id
         }
 
-        checkRecordSelection(index) {
-            if (index == this.selectedRecordIndex) {
-                this.$emit('record-selected', this.recordList[index])
+        checkRecordSelection(id) {
+            if (id == this.selectedRecordId) {
+                this.$emit('record-selected', this.recordList[id])
                 return 'selected'
-            }
+            } 
             return 'unselected'
         }
 
-        deleteRecord(index) {
-            this.deleteRecordFromStore(index)
-            if (index == this.selectedRecordIndex) {
-                if (this.selectedRecordIndex > 0) this.selectedRecordIndex--
-            }
+        deleteRecord(id) {
+            this.deleteRecordFromStore(id)
         }
 
         newSearchInput() {
