@@ -11,7 +11,9 @@ const Router = Express.Router();
 Router.delete('/record', ( request, response, next ) => {
     
     /*
-    {id }
+    { 
+        id: Int 
+    }
     */
     const params = { ...request.params, ... request.query, ...request.body };
 
@@ -30,7 +32,8 @@ Router.delete('/record', ( request, response, next ) => {
 Router.post('/record', ( request, response, next ) => {
 
     /*
-    { record: { version: String            
+    { 
+        record: { version: String            
                 sessionId: Int
                 eventId: EventTriggerEnum
                 location: { X: Int, Y: Int },  
@@ -66,9 +69,10 @@ Router.post('/record', ( request, response, next ) => {
     next();
 })
 
-
+// fetch specific page of records
 Router.get('/record_list', ( request, response, next ) => {
-    // fetch page of xxx recs for client
+    
+    const params = { ...request.params, ... request.query, ...request.body };
     response.send(recordList);
 
     next();
