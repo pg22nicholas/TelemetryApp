@@ -23,7 +23,7 @@ export default {
         appTitle: "Game Telemetry Viewer",
         actionData: {},
         rec: new TData(), // TODO: convert to list of records
-        recordList: TData.generateRecordList(),
+        recordList: {}
     },
 
     // PUBLIC: injected into components
@@ -48,26 +48,19 @@ export default {
             commit('DELETE_RECORD', id)
         },
         getRecords( {commit}, params) {
-            //return new Promise(( resolve, reject ) => {
+            return new Promise(( resolve, reject ) => {
 
                 dataStore.get('/api/tdata/record_list')
-                    .then( response => {
-                        console.log(response)
-                        //return response.data 
-                    }, error => {
-                        console.log(error)
+                    .then( content => {
+                        console.log("Success")
+                        commit('GET_RECORDS', content.data)
+                        resolve(content.status);
                     })
-                    // .then( data => (data.error ? error => { throw( error ) }: data.payload ))
-                    // .then( content => {
-                    //     console.log(content)
-                    //     //commit('SET_USER', content.info )
-                    //     resolve( content.status );
-                    // })
-                    // .catch( error => {
-                    //     console.log(error)
-                    //     reject();
-                    // })
-            //})
+                    .catch( error => {
+                        console.log(error)
+                        reject();
+                    })
+            })
         },
 
         doAction({ commit }, params ) {
@@ -100,7 +93,7 @@ export default {
             Vue.delete(state.recordList, id)
         },
         GET_RECORDS: ( state, data ) => {
-            this.recordList = data;
+            state.recordList = data;
         }
     },
 
