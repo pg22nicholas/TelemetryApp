@@ -5,7 +5,7 @@ Copyright (c) 2019. Scott Henshaw, Kibble Online Inc. All Rights Reserved.
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import Axios from 'axios'
+import axios from 'axios'
 
 import TData from './TData' // import POJS model objects
 
@@ -14,8 +14,8 @@ import TData from './TData' // import POJS model objects
 //     const baseURL = 'https://localhost:5000'
 // }
 
-const baseURL = 'https://localhost:5000'
-const dataStore = Axios.create({baseURL: baseURL})
+const baseURL = 'http://127.0.0.1:5000/'
+const dataStore = axios.create({baseURL: baseURL})
 
 export default {
     // PRIVATE: model state of the application, a bunch of POJS objects
@@ -48,21 +48,26 @@ export default {
             commit('DELETE_RECORD', id)
         },
         getRecords( {commit}, params) {
-            return new Promise(( resolve, reject ) => {
+            //return new Promise(( resolve, reject ) => {
 
-                dataStore.get('/api/tdata/record_list', params )
-                    .then( response => response.data )
-                    .then( data => (data.error ? error => { throw( error ) }: data.payload ))
-                    .then( content => {
-                        console.log(content)
-                        //commit('SET_USER', content.info )
-                        resolve( content.status );
+                dataStore.get('/api/tdata/record_list')
+                    .then( response => {
+                        console.log(response)
+                        //return response.data 
+                    }, error => {
+                        console.log(error)
                     })
-                    .catch( error => {
-                        console.log('Seems that role has already been taken.')
-                        reject();
-                    })
-            })
+                    // .then( data => (data.error ? error => { throw( error ) }: data.payload ))
+                    // .then( content => {
+                    //     console.log(content)
+                    //     //commit('SET_USER', content.info )
+                    //     resolve( content.status );
+                    // })
+                    // .catch( error => {
+                    //     console.log(error)
+                    //     reject();
+                    // })
+            //})
         },
 
         doAction({ commit }, params ) {

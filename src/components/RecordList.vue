@@ -41,7 +41,7 @@ Copyright (c) 2022 Nicholas Johnson
             }
 
             this.injectGetters(['recordList']);
-            this.injectActions(['deleteRecordFromStore'])
+            this.injectActions(['deleteRecordFromStore', 'getRecords'])
         }
 
         selectRecord(id) {
@@ -62,6 +62,11 @@ Copyright (c) 2022 Nicholas Johnson
 
         newSearchInput() {
             console.log("New String: " + this.searchText)
+        }
+
+        onMounted() {
+            console.log("On Mounted")
+            this.getRecords()
         }
     }
 
