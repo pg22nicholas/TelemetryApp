@@ -72,9 +72,7 @@ Router.post('/record', ( request, response, next ) => {
 // fetch specific page of records
 Router.get('/record_list', ( request, response, next ) => {
     
-    const params = { ...request.params, ... request.query, ...request.body };
     response.send(recordList);
-
     next();
 })
 

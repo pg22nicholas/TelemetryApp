@@ -7,12 +7,15 @@ import Vuex from 'vuex'
 
 import Axios from 'axios'
 
-//const baseURL = `${LOCATION.PROTOCOL}//${LOCATION.HOSTNAME}:${LOCATION.PORT}`;
-//const Remote = Axios.create( { baseURL: baseURL });
-
 import TData from './TData' // import POJS model objects
 
+// const baseURL = `${LOCATION.PROTOCOL}//${LOCATION.HOSTNAME}:${LOCATION.PORT}`
+// if (DEBUG) {
+//     const baseURL = 'https://localhost:5000'
+// }
 
+const baseURL = 'https://localhost:5000'
+const dataStore = Axios.create({baseURL: baseURL})
 
 export default {
     // PRIVATE: model state of the application, a bunch of POJS objects
@@ -44,6 +47,23 @@ export default {
         deleteRecordFromStore( {commit }, id) {
             commit('DELETE_RECORD', id)
         },
+        getRecords( {commit}, params) {
+            return new Promise(( resolve, reject ) => {
+
+                dataStore.get('/api/tdata/record_list', params )
+                    .then( response => response.data )
+                    .then( data => (data.error ? error => { throw( error ) }: data.payload ))
+                    .then( content => {
+                        console.log(content)
+                        //commit('SET_USER', content.info )
+                        resolve( content.status );
+                    })
+                    .catch( error => {
+                        console.log('Seems that role has already been taken.')
+                        reject();
+                    })
+            })
+        },
 
         doAction({ commit }, params ) {
             // return promises here if required,
@@ -51,7 +71,7 @@ export default {
             /*
             return new Promise(( resolve, reject ) => {
 
-                Axios.post('/api/model/action', params )
+                dataStore.post('/api/model/action', params )
                     .then( response => response.data )
                     .then( data => (data.error ? error => { throw( error ) }: data.payload ))
                     .then( content => {
@@ -73,6 +93,9 @@ export default {
         UPDATE_RECORD: ( state, rec ) => { state.rec = rec },
         DELETE_RECORD: ( state, id ) => {
             Vue.delete(state.recordList, id)
+        },
+        GET_RECORDS: ( state, data ) => {
+            this.recordList = data;
         }
     },
 
