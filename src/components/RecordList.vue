@@ -20,7 +20,7 @@ Copyright (c) 2022 Nicholas Johnson
                             </button>
                         </div>
                 </div>
-                <button id="load-new-page-button">New Records</button>
+                <!--<button id="load-new-page-button">New Records</button>-->
             </div>
 
     </section>

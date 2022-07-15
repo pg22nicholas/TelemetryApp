@@ -45,7 +45,19 @@ export default {
             commit('UPDATE_RECORD', rec )
         },
         deleteRecordFromStore( {commit }, id) {
-            commit('DELETE_RECORD', id)
+            return new Promise(( resolve, reject ) => {
+
+                dataStore.delete('/api/tdata/record', { params: {"id": id }})
+                    .then( content => {
+                        console.log("Successfully deleted")
+                        commit('DELETE_RECORD', id)
+                        resolve(content.status);
+                    })
+                    .catch( error => {
+                        console.log(error)
+                        reject();
+                    })
+            })
         },
         getRecords( {commit}, params) {
             return new Promise(( resolve, reject ) => {

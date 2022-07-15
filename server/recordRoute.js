@@ -16,6 +16,7 @@ Router.delete('/record', ( request, response, next ) => {
     }
     */
     const params = { ...request.params, ... request.query, ...request.body };
+    console.log(params)
 
     let id = params.id
 
@@ -33,7 +34,9 @@ Router.post('/record', ( request, response, next ) => {
 
     /*
     { 
-        record: { version: String            
+        record: 
+            { 
+                version: String            
                 sessionId: Int
                 eventId: EventTriggerEnum
                 location: { X: Int, Y: Int },  
