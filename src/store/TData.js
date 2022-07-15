@@ -1,4 +1,6 @@
+// Copyright (c) 2022 Nicholas Johnson
 
+// Client side TData copy
 export const rec = {
     // event triggered telemetry data
     id: -1,                                     // auto generated unique rec id

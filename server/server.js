@@ -1,6 +1,5 @@
 /*
-Node Express Server (MEVN Stack)
-Copyright (c) 2019. Scott Henshaw, Kibble Online Inc. All Rights Reserved.
+Copyright (c) 2022 Nicholas Johnson
 */
 'use strict';
 

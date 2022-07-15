@@ -1,4 +1,4 @@
-/* Copyright (C) 2022 Scott Henshaw */
+/* Copyright (c) 2022 Nicholas Johnson */
 const Express = require('express')
 const Result = require('../src/mixins/result.js')
 
