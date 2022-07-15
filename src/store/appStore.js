@@ -21,7 +21,6 @@ export default {
     state: {
         appTitle: "Game Telemetry Viewer",
         actionData: {},
-        rec: new TData(), // TODO: convert to list of records
         recordList: {}
     },
 
@@ -37,11 +36,6 @@ export default {
     // PUBLIC: injected into components
     // called to do things to the state via ajax and mutations
     actions: {
-
-        updateSingle( { commit }, rec ) {
-
-            commit('UPDATE_RECORD', rec )
-        },
         deleteRecordFromStore( {commit }, id) {
             return new Promise(( resolve, reject ) => {
 
@@ -77,7 +71,6 @@ export default {
     // PRIVATE: caled by actions to modify the state to prevent deadlock
     mutations: {
         SET_USER: ( state, info ) => { state.actionData.info = info },
-        UPDATE_RECORD: ( state, rec ) => { state.rec = rec },
         DELETE_RECORD: ( state, id ) => {
             Vue.delete(state.recordList, id)
         },
