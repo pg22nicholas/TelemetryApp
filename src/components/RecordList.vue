@@ -85,6 +85,8 @@ Copyright (c) 2022 Nicholas Johnson
 
                 this.selectedRecordId = arrOfIds[index]
             }
+
+            // force an update on the specific record
             this.recordList[this.selectedRecordId].id = this.selectedRecordId
         }
 
