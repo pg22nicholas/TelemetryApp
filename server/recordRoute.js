@@ -8,6 +8,7 @@ const recordList = TDataRec.TData.generateRecordList()
 
 const Router = Express.Router();
 
+// deletes a single record by ID
 Router.delete('/record', ( request, response, next ) => {
     
     /*
@@ -30,6 +31,7 @@ Router.delete('/record', ( request, response, next ) => {
     next();
 })
 
+// adds a new record
 Router.post('/record', ( request, response, next ) => {
 
     /*

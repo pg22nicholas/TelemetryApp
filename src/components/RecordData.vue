@@ -53,10 +53,5 @@ Copyright (c) 2022 Nicholas Johnson
         margin-top: 10px;
         overflow: scroll;
     }
-
-    button {
-        padding: .5em;
-        margin: .25em;
-        padding-bottom: 1.5em;
-    }
+    
 </style>

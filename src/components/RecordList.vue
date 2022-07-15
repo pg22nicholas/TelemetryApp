@@ -29,9 +29,6 @@ Copyright (c) 2022 Nicholas Johnson
 <script>
 
     import Controller from '@/mixins/controller'
-    import { ref, watch } from 'vue'
-
-    //const recordDataWatcher = ref('')
 
     class RecordListController extends Controller {
         constructor( name, subComponentList = []) {
@@ -95,8 +92,8 @@ Copyright (c) 2022 Nicholas Johnson
         }
 
         async onMounted() {
-            console.log("On Mounted")
-            await this.getRecords()  
+            await this.getRecords() 
+            // select first record on page load 
             this.selectRecord(Object.keys(this.recordList)[0])
         }
     }
