@@ -61,9 +61,31 @@ Copyright (c) 2022 Nicholas Johnson
             return 'unselected'
         }
 
+        // delete a record and update the currently selected record if needed
         async deleteRecord(id) {
-            await this.deleteRecordFromStore(id)    
-            // TODO;
+            let arrOfIds = Object.keys(this.recordList)
+            let index = arrOfIds.indexOf(id)
+            if (index == -1) return;
+            
+            await this.deleteRecordFromStore(id)  
+
+            arrOfIds.splice(index, 1)
+
+            // if deleted record is the currently selected record
+            if (this.selectedRecordId == id) {
+
+                // if list of records empty, set nothing as selected
+                if (arrOfIds.length == 0) {
+                    this.selectedRecordId = -1
+                    return
+                }
+
+                // if deleted and was selected last record, decrement selected index
+                if (index >= arrOfIds.length) index--;
+
+                this.selectedRecordId = arrOfIds[index]
+            }
+            this.recordList[this.selectedRecordId].id = this.selectedRecordId
         }
 
         newSearchInput() {
