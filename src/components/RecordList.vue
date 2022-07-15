@@ -29,14 +29,16 @@ Copyright (c) 2022 Nicholas Johnson
 <script>
 
     import Controller from '@/mixins/controller'
+    import { ref, watch } from 'vue'
+
+    //const recordDataWatcher = ref('')
 
     class RecordListController extends Controller {
-
         constructor( name, subComponentList = []) {
             super( name, subComponentList );
 
             this.vm = {
-                selectedRecordId: 0,
+                selectedRecordId: -1,
                 searchText: "",
             }
 
@@ -49,6 +51,9 @@ Copyright (c) 2022 Nicholas Johnson
         }
 
         checkRecordSelection(id) {
+            // if nothing selected (Case when no records loaded in)
+            if (this.selectedRecordId == -1) return
+
             if (id == this.selectedRecordId) {
                 this.$emit('record-selected', this.recordList[id])
                 return 'selected'
@@ -56,17 +61,19 @@ Copyright (c) 2022 Nicholas Johnson
             return 'unselected'
         }
 
-        deleteRecord(id) {
-            this.deleteRecordFromStore(id)
+        async deleteRecord(id) {
+            await this.deleteRecordFromStore(id)    
+            // TODO;
         }
 
         newSearchInput() {
             console.log("New String: " + this.searchText)
         }
 
-        onMounted() {
+        async onMounted() {
             console.log("On Mounted")
-            this.getRecords()
+            await this.getRecords()  
+            this.selectRecord(Object.keys(this.recordList)[0])
         }
     }
 
