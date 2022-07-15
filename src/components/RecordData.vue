@@ -29,7 +29,7 @@ Copyright (c) 2022 Nicholas Johnson
         }
 
         formatRecordJSON(record) {
-            let stringToDisplay = JSON.stringify(record, null, 4)
+            let stringToDisplay = JSON.stringify(record, null, 8)
             stringToDisplay.slice(0, 1)
             stringToDisplay.slice(stringToDisplay.length - 1, 1)
             return stringToDisplay
