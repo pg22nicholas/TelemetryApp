@@ -5,10 +5,10 @@ Copyright (c) 2022 Nicholas Johnson
 
     <section class="container">
         
-            <div id="filter-container">
+           <!-- <div id="filter-container">
                 <input type="text" id="search-bar" v-model="searchText" @change="newSearchInput()" />
                 <button id="filter"></button>
-            </div>
+            </div>-->
             <div class="record-list">
                 <div    
                         v-bind:class="checkRecordSelection(id)" 
