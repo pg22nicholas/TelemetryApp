@@ -12,7 +12,8 @@ const FileSystem = require('fs-extra')
 
 const Result = require('../src/mixins/result')
 
-const TelemetryData = require('./recordRoute.js')
+const TelemetryData = require('./recordRoute.js');
+const { response } = require('express');
 
 const PORT = 5000;
 
@@ -40,6 +41,10 @@ class Server {
             .use( Express.static( Path.join(__dirname, '../../public') ))
             .use( CORS( corsOptions )).options('/*', this.corsHandler )
             .use('/api/tdata', TelemetryData );
+
+            // this.api.get("/", (request, response, next )=> {
+            //     response.send("../docs/index.html")
+            // })
 
         this.run();
     }
