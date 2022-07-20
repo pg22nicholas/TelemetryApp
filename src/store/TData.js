@@ -44,3 +44,8 @@ export default class TData {
         return result
     }
 }
+
+let index = 0
+export const getNewIndex = () => {
+    return index++;
+}

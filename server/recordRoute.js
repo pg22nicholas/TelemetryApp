@@ -2,9 +2,9 @@
 const Express = require('express')
 const Result = require('../src/mixins/result.js')
 
-const TDataRec = require('./TData.js')
+import TData from "../src/store/TData.js"
 
-const recordList = TDataRec.TData.generateRecordList()
+const recordList = TData.generateRecordList()
 
 const Router = Express.Router();
 
