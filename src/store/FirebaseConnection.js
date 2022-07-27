@@ -64,23 +64,6 @@ export default class FirebaseConnection extends Connection {
                 reject(error)
             }
             resolve({data: result, status: 200})
-            
-
-            
-
-            resolve({data: "", error: 101})
-            // // request is /api/tdData/recordList
-            // return new Promise((resolve, reject) => {
-
-            //     this.db.automaticDataCollectionEnabled('telemetry')
-            //         .then(collection => {
-            //             resolve(collection)
-            //         })
-            //         .catch(error => {
-            //             console.log(error)
-            //             reject(error)
-            //         })
-            // })
         })
     }
 
