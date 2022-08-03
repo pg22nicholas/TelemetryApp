@@ -51,6 +51,13 @@ Copyright (c) 2018. Scott Henshaw, Kibble Online Inc. All Rights Reserved.
 
             
             this.injectGetters(['actionSummary'])
+            this.injectActopms(['refreshActionSummary'])
+        }
+
+        refreshChar() {
+            this.refreshActionSummary() 
+                .then(msg => { console.log(msg) })
+                .catch(error => { console.log(error) })
         }
     }
 

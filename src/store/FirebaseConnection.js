@@ -11,6 +11,8 @@ import { getAnalytics } from "firebase/analytics";
 
 import { collection, getDocs } from "firebase/firestore"; 
 import { resolve } from 'path';
+
+import axios from 'axios'
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -30,6 +32,9 @@ export default class FirebaseConnection extends Connection {
             appId: "1:899925976647:web:0b1160ff53ed2a61dd3362",
             measurementId: "G-2S0K235ZR3"
         }
+        // TODO: find proper URL
+        const functionsURL = `https://us-central1-${config.projectId}.cloudfunctions.net`
+        this.functions = axios.create({baseURL: functionsURL})
         this.fb = initializeApp(this.fbConfig)
         this.db = getFirestore(this.fb)
     }
@@ -46,10 +51,25 @@ export default class FirebaseConnection extends Connection {
 
     }
 
+    execute(request, data) {
+        return new Primise((resolve, reject) => {
+            this.functions.get('helloWorld')
+                .then(data => {
+                    console.log()
+                    resolve(data)
+                })
+                .catch(error => {
+                    reject(error)
+                })
+        })
+    }
+
     read(request) {
 
         return new Promise(async ( resolve, reject ) => {
 
+            // assume request is /api/tdata/record_list
+            // assume request is /api/charts/action-chart
             let result = {}
             try {
                 const querySnapshot = await getDocs(collection(this.db, "telemetry"));
@@ -72,6 +92,10 @@ export default class FirebaseConnection extends Connection {
     }
 
     delete(request, data) {
+
+    }
+
+    callCloudHello() {
 
     }
 }

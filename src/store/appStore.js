@@ -12,6 +12,7 @@ import TData from './TData' // import POJS model objects
 
 import { DEBUG } from '../store.js';
 
+console.log(DEBUG)
 let db;
 if (DEBUG)
     db = new ExpressConnection()
@@ -82,7 +83,7 @@ export default {
                 // fill in the chartData once we get a response
                 const id = 1234
                 const session = '001'
-                db.update(`/api/tdata/actionSummary/:${id}/:${session}`)
+                db.execute(`helloworld/:${id}/:${session}`)
                     .then(result => {
                         commit('UPDATE_ACTION_SUMMRY', result.payload)
                         resolve(result.status)
