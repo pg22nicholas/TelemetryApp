@@ -10,7 +10,7 @@ import ExpressConnection from './ExpressConnection.js';
 import FirebaseConnection from './FirebaseConnection.js';
 import TData from './TData' // import POJS model objects
 
-const DEBUG = false
+import { DEBUG } from '../store.js';
 
 let db;
 if (DEBUG)
@@ -23,7 +23,14 @@ export default {
     state: {
         appTitle: "Game Telemetry Viewer",
         actionData: {},
-        recordList: {}
+        recordList: {},
+        chartData: [
+            ['Year', 'Sales', 'Expenses'],
+           ['2013', 1000, 400],
+           ['2014', 1170, 460],
+           ['2015', 660, 1120],
+           ['2016', 1030, 540],
+       ],
     },
 
     // PUBLIC: injected into components
@@ -33,6 +40,7 @@ export default {
         theInfo: state => state.actionData.info,
  
         recordList: state => state.recordList,
+        actionSummary: state => state.chartData
     },
 
     // PUBLIC: injected into components
@@ -67,6 +75,24 @@ export default {
                 resolve(validData);
             })
         },
+        fetchActionSummary({commit}, params) {
+
+            // post requset to server to get the data
+            return new Promise((resolve, reject) => {
+                // fill in the chartData once we get a response
+                const id = 1234
+                const session = '001'
+                db.update(`/api/tdata/actionSummary/:${id}/:${session}`)
+                    .then(result => {
+                        commit('UPDATE_ACTION_SUMMRY', result.payload)
+                        resolve(result.status)
+                    })
+                    .catch(error => {
+                        console.log(error)
+                        reject(error.status)
+                    })
+            })
+        }
     },
 
     // PRIVATE: caled by actions to modify the state to prevent deadlock
@@ -77,7 +103,8 @@ export default {
         },
         GET_RECORDS: ( state, data ) => {
             state.recordList = data;
-        }
+        },
+        UPDATE_ACTION_SUMMRY: (state, data) => { state.charData = data }
     },
 
 }

@@ -21,3 +21,5 @@ Router.get('/action-chart:/:id/:session', (request, response, next) => {
     states = { IDLE: 0, WALK: 1, RUN: 2, ATTACKING: 3, DODGING: 4, ... }
     */
 })
+
+module.exports = Router;
