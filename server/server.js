@@ -12,7 +12,9 @@ const FileSystem = require('fs-extra')
 
 const Result = require('../src/mixins/result')
 
-const TelemetryData = require('./recordRoute.js');
+const TelemetryData = require('./api/recordRoute.js')
+const Charts = require('./api/chartRoute')
+
 const { response } = require('express');
 
 const PORT = 5000;
@@ -36,11 +38,12 @@ class Server {
         }
 
         this.api
-            .use( Express.json() )
-            .use( Express.urlencoded({ extended: false }))
-            .use( Express.static( Path.join(__dirname, '../../public') ))
-            .use( CORS( corsOptions )).options('/*', this.corsHandler )
-            .use('/api/tdata', TelemetryData );
+            .use(Express.json())
+            .use(Express.urlencoded({ extended: false }))
+            .use(Express.static( Path.join(__dirname, '../../public')))
+            .use(CORS( corsOptions )).options('/*', this.corsHandler)
+            .use('/api/tdata', TelemetryData)
+            .use('/api/charts', Charts)
 
             // this.api.get("/", (request, response, next )=> {
             //     response.send("../docs/index.html")

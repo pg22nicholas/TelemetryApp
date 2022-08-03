@@ -1,8 +1,8 @@
 /* Copyright (c) 2022 Nicholas Johnson */
 const Express = require('express')
-const Result = require('../src/mixins/result.js')
+const Result = require('../../src/mixins/result.js')
 
-import TData from "../src/store/TData.js"
+import TData from "../../src/store/TData.js"
 
 const recordList = TData.generateRecordList()
 
