@@ -12,9 +12,8 @@ import TData from './TData' // import POJS model objects
 
 import { DEBUG } from '../store.js';
 
-console.log(DEBUG)
 let db;
-if (DEBUG)
+if (true)
     db = new ExpressConnection()
 else
     db = new FirebaseConnection()
@@ -50,14 +49,14 @@ export default {
         deleteRecordFromStore( {commit }, id) {
             return new Promise(async( resolve, reject ) => {
 
-                let content = await this.db.delete('/api/tdata/record', { params: {"id": id  }})
-                    .catch (errorData => {
-                        console.log(errorData)
-                        reject();
-                    })
-
-                commit('DELETE_RECORD', id)
-                resolve(content.status);
+                try {
+                    let content = await db.delete('/api/tdata/record', { "id": id  })
+                    commit('DELETE_RECORD', id)
+                    resolve(content.status);
+                } catch(error) {
+                    console.log(error)
+                    reject();
+                }
             })
         },
         getRecords({ commit }) {

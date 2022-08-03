@@ -53,7 +53,7 @@ export default class ExpressConnection extends Connection {
     delete(request, data) {
         return new Promise((resolve, reject) => {
 
-            this.db.delete(request)
+            this.db.delete(request, {"params": { ...data }} )
                 .then(content => {
                     resolve(content)
                 })
