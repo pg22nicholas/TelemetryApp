@@ -33,7 +33,7 @@ export default class FirebaseConnection extends Connection {
             measurementId: "G-2S0K235ZR3"
         }
         // TODO: find proper URL
-        const functionsURL = `https://us-central1-${config.projectId}.cloudfunctions.net`
+        const functionsURL = `https://us-central1-${this.fbConfig.projectId}.cloudfunctions.net`
         this.functions = axios.create({baseURL: functionsURL})
         this.fb = initializeApp(this.fbConfig)
         this.db = getFirestore(this.fb)
@@ -77,12 +77,13 @@ export default class FirebaseConnection extends Connection {
                     let data = doc.data()
                     console.log(JSON.stringify(doc.data()))
                     //console.log(`${doc.id} => ${doc.data()}`);
-                    result[data.id] = data
+                    result[doc.id] = data
                 });
             } catch (error) {
                 console.log(error)
                 reject(error)
             }
+            console.log(JSON.stringify(result))
             resolve({data: result, status: 200})
         })
     }
