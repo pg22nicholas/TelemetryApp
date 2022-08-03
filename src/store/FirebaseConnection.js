@@ -90,10 +90,6 @@ export default class FirebaseConnection extends Connection {
         })
     }
 
-    update(request, data) {
-
-    }
-
     delete(request, data) {
         return new Promise(async (resolve, reject) => {
             try {

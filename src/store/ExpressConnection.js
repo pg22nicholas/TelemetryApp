@@ -46,10 +46,6 @@ export default class ExpressConnection extends Connection {
         })
     }
 
-    update(request, data) {
-        // assyme route on `/api/tdata/actionSummary/:id/:session
-    }
-
     delete(request, data) {
         return new Promise((resolve, reject) => {
 
