@@ -9,6 +9,8 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getAnalytics } from "firebase/analytics";
 
+import { doc, deleteDoc } from "firebase/firestore";
+
 import { collection, getDocs } from "firebase/firestore"; 
 import { resolve } from 'path';
 
@@ -93,7 +95,16 @@ export default class FirebaseConnection extends Connection {
     }
 
     delete(request, data) {
-
+        return new Promise(async (resolve, reject) => {
+            try {
+                await deleteDoc(doc(this.db, "telemetry", data.id))
+                resolve({ status: 100 })
+            } catch(error) {
+                console.log(error)
+                reject(error)
+            }
+            
+        })
     }
 
     callCloudHello() {
