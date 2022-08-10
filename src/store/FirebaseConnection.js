@@ -9,9 +9,7 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getAnalytics } from "firebase/analytics";
 
-import { doc, deleteDoc } from "firebase/firestore";
-
-import { collection, getDocs } from "firebase/firestore"; 
+import { collection, getDocs, doc, deleteDoc, addDoc  } from "firebase/firestore"; 
 import { resolve } from 'path';
 
 import axios from 'axios'
@@ -85,7 +83,6 @@ export default class FirebaseConnection extends Connection {
                 console.log(error)
                 reject(error)
             }
-            console.log(JSON.stringify(result))
             resolve({data: result, status: 200})
         })
     }
@@ -104,7 +101,15 @@ export default class FirebaseConnection extends Connection {
     }
 
     add(request, data) {
-        // TODO:
+        return new Promise(async (resolve, reject) => {
+            try {
+                let docRef = await addDoc(collection(this.db, "telemetry"), {...data})
+                resolve(docRef.id)
+            } catch(error) {
+                console.log(error)
+                reject(error)
+            }
+        })
     }
 
     callCloudHello() {

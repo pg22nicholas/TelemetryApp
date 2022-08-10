@@ -80,14 +80,10 @@ export default {
 
                 try {
                     let id = await db.add('/api/tdata/record', recordData)
-                    console.log("id added", id)
-                    
+                                        
                     let result = {};
                     recordData.id = id
                     result[id] = {...recordData}
-                    console.log(JSON.stringify({ ...result }))
-
-
                     commit('ADD_RECORD', result)
                     
                     resolve(id);
