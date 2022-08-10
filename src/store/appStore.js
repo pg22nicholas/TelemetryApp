@@ -13,7 +13,7 @@ import TData from './TData' // import POJS model objects
 import { DEBUG } from '../store.js';
 
 let db;
-if (false)
+if (true)
     db = new ExpressConnection()
 else
     db = new FirebaseConnection()
@@ -75,6 +75,28 @@ export default {
                 resolve(validData);
             })
         },
+        addRecord({ commit }, recordData) {
+            return new Promise(async (resolve, reject) => {
+
+                try {
+                    let id = await db.add('/api/tdata/record', recordData)
+                    console.log("id added", id)
+                    
+                    let result = {};
+                    recordData.id = id
+                    result[id] = {...recordData}
+                    console.log(JSON.stringify({ ...result }))
+
+
+                    commit('ADD_RECORD', result)
+                    
+                    resolve(id);
+                } catch (errorData) {
+                        console.log(errorData)
+                        reject();
+                }                
+            })
+        },
         fetchActionSummary({commit}, params) {
 
             // post requset to server to get the data
@@ -97,14 +119,18 @@ export default {
 
     // PRIVATE: caled by actions to modify the state to prevent deadlock
     mutations: {
-        SET_USER: ( state, info ) => { state.actionData.info = info },
-        DELETE_RECORD: ( state, id ) => {
+        SET_USER: (state, info) => { state.actionData.info = info },
+        DELETE_RECORD: (state, id) => {
             Vue.delete(state.recordList, id)
         },
-        GET_RECORDS: ( state, data ) => {
+        GET_RECORDS: (state, data) => {
             state.recordList = data;
         },
-        UPDATE_ACTION_SUMMRY: (state, data) => { state.charData = data }
+        UPDATE_ACTION_SUMMRY: (state, id) => { state.charData = data },
+        ADD_RECORD: (state, recordData) => { 
+            let id = Object.keys(recordData)[0]
+            Vue.set(state.recordList, id, recordData[id]) 
+        }
     },
 
 }

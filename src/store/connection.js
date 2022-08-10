@@ -23,7 +23,8 @@ export default class Connection {
     }
 
     read(request) {
-
+        // assume request is /api/tdata/record_list
+        // assume request is /api/charts/action-chart
     }
 
     update(request, data) {
@@ -31,6 +32,10 @@ export default class Connection {
     }
 
     delete(request, data) {
+
+    }
+
+    add(request, data) {
 
     }
 }

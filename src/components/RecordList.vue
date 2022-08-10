@@ -16,10 +16,13 @@ Copyright (c) 2022 Nicholas Johnson
                         <div class="record-row">
                             <div class="record-info" @click="selectRecord(id)" >{{record.id + "\n" + record.version}}</div>
                             <button @click="deleteRecord(id)" class="delete-record-button">
-                                <div class="delete-button-text">-</div>
+                                <div class="button-text">-</div>
                             </button>
                         </div>
                 </div>
+                <button class="add-new-record-button" @click="addNewRecord()">
+                    <div class="button-text">Add new record</div>
+                </button>
                 <!--<button id="load-new-page-button">New Records</button>-->
             </div>
 
@@ -29,6 +32,7 @@ Copyright (c) 2022 Nicholas Johnson
 <script>
 
     import Controller from '@/mixins/controller'
+    import { rec } from '@/store/TData.js'
 
     class RecordListController extends Controller {
         constructor( name, subComponentList = []) {
@@ -40,7 +44,7 @@ Copyright (c) 2022 Nicholas Johnson
             }
 
             this.injectGetters(['recordList']);
-            this.injectActions(['deleteRecordFromStore', 'getRecords'])
+            this.injectActions(['deleteRecordFromStore', 'getRecords', 'addRecord'])
         }
 
         selectRecord(id) {
@@ -56,6 +60,11 @@ Copyright (c) 2022 Nicholas Johnson
                 return 'selected'
             } 
             return 'unselected'
+        }
+
+        addNewRecord() {
+            let newRecord = rec
+            this.addRecord(rec)
         }
 
         // delete a record and update the currently selected record if needed
@@ -84,7 +93,7 @@ Copyright (c) 2022 Nicholas Johnson
             }
 
             // force an update on the specific record
-            this.recordList[this.selectedRecordId].id = this.selectedRecordId
+            //this.recordList[this.selectedRecordId].id = this.selectedRecordId
         }
 
         newSearchInput() {
@@ -159,12 +168,20 @@ Copyright (c) 2022 Nicholas Johnson
         height: 100%;
     }
 
+    .add-new-record-button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: fit-content;
+        height: 25px;
+    }
+
     #load-new-page-button {
         width: 100%;
         height: 35px;
     }
 
-    .delete-button-text {
+    .button-text {
         width: fit-content;
         height: fit-content;
     }

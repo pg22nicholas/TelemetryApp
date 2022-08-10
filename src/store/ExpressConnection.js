@@ -59,4 +59,20 @@ export default class ExpressConnection extends Connection {
                 })
         })
     }
+
+    add(request, data) {
+        console.log(data)
+        return new Promise((resolve, reject) => {
+
+            this.db.post(request, {"params": { ...data }} )
+                .then(content => {
+                    resolve(content.data.id)
+                })
+                .catch(error => {
+                    console.log(error)
+                    reject(error);
+                })
+        })
+    }
+
 }

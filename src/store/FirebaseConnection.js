@@ -70,8 +70,7 @@ export default class FirebaseConnection extends Connection {
 
         return new Promise(async ( resolve, reject ) => {
 
-            // assume request is /api/tdata/record_list
-            // assume request is /api/charts/action-chart
+            
             let result = {}
             try {
                 const querySnapshot = await getDocs(collection(this.db, "telemetry"));
@@ -101,6 +100,10 @@ export default class FirebaseConnection extends Connection {
             }
             
         })
+    }
+
+    add(request, data) {
+        // TODO:
     }
 
     callCloudHello() {
