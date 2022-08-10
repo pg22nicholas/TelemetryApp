@@ -40,6 +40,7 @@ export default class TData {
             let data = {...new TData().rec }
             data.id = i;
             result[i] = data
+            index++
         }
         return result
     }
