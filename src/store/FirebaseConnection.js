@@ -76,6 +76,7 @@ export default class FirebaseConnection extends Connection {
                 const querySnapshot = await getDocs(collection(this.db, "telemetry"));
                 querySnapshot.forEach((doc) => {
                     let data = doc.data()
+                    data.id = doc.id
                     console.log(JSON.stringify(doc.data()))
                     //console.log(`${doc.id} => ${doc.data()}`);
                     result[doc.id] = data
