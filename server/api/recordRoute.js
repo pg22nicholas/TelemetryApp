@@ -3,6 +3,7 @@ const Express = require('express')
 const Result = require('../../src/mixins/result.js')
 
 import TData from "../../src/store/TData.js"
+import { getNewIndex } from "../../src/store/TData.js"
 
 const recordList = TData.generateRecordList()
 
@@ -36,41 +37,34 @@ Router.post('/record', ( request, response, next ) => {
 
     /*
     { 
-        record: 
-            { 
-                version: String            
-                sessionId: Int
-                eventId: EventTriggerEnum
-                location: { X: Int, Y: Int },  
-                mapName: String
-                actor: {
-                    id: Int
-                    state: AnimationStateEnum
-                    health: Int
-                    damageDone: Int
-                    weapon: Int
-                    heading: { X: Int, Y: Int, Z: Int },        
-                    lookingVector: { X: Int, Y: Int, Z: Int },    
-                    spawnAt: { X: Int, Y: Int, Z: Int },          
-                    travelled: Int
-                }   
-            }
+        id: Int
+        version: String            
+        sessionId: Int
+        eventId: EventTriggerEnum
+        location: { X: Int, Y: Int },  
+        mapName: String
+        actor: {
+            id: Int
+            state: AnimationStateEnum
+            health: Int
+            damageDone: Int
+            weapon: Int
+            heading: { X: Int, Y: Int, Z: Int },        
+            lookingVector: { X: Int, Y: Int, Z: Int },    
+            spawnAt: { X: Int, Y: Int, Z: Int },          
+            travelled: Int
+        }   
     }
     */
-    const params = { ...request.params, ... request.query, ...request.body };
+    const params = { ...request.params, ... request.query, ...request.body};
 
-    // prevent adding record if incorrect structure
-    if (!params.record) {
-        return response.status(402).end()
-    }
-
-    let id = TDataRec.getNewIndex()
-    recordList[id] = params.record
-
-    console.log(recordList)
+    let id = getNewIndex()
+    recordList[id] = { ...params.params }
+    // update id to newly stored id
+    recordList[id].id = id
 
     // add single rec from client
-    response.send("Added new record");
+    response.send({ id: id });
     next();
 })
 
