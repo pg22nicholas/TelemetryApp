@@ -18,10 +18,6 @@ export default class Connection {
 
     }
 
-    create(request, data) {
-
-    }
-
     read(request) {
         // assume request is /api/tdata/record_list
         // assume request is /api/charts/action-chart

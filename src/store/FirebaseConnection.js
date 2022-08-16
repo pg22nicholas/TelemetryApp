@@ -47,10 +47,6 @@ export default class FirebaseConnection extends Connection {
 
     }
 
-    create(request, data) {
-
-    }
-
     execute(request, data) {
         return new Primise((resolve, reject) => {
             this.functions.get('helloWorld')

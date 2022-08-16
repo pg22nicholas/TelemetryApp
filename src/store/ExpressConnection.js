@@ -28,10 +28,6 @@ export default class ExpressConnection extends Connection {
 
     }
 
-    create(request, data) {
-
-    }
-
     read(request) {
         return new Promise(( resolve, reject ) => {
 
