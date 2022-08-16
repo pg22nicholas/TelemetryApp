@@ -3,7 +3,7 @@ VFS VUE Single File Component
 
 <pg-home user="User"></pg-home>
 
-Copyright (c) 2018. Scott Henshaw, Kibble Online Inc. All Rights Reserved.
+Copyright (C) Nicholas Johnson 2022
 -->
 <template>
 
@@ -11,7 +11,6 @@ Copyright (c) 2018. Scott Henshaw, Kibble Online Inc. All Rights Reserved.
         <h3>Charts</h3>
         <div class="container chart-area">
             <div class="chart chart-1">
-                this is where the charts go
                 <t-bar-chart :data="actionSummary"/>
             </div> 
              <div class="chart chart-2">
@@ -37,13 +36,7 @@ Copyright (c) 2018. Scott Henshaw, Kibble Online Inc. All Rights Reserved.
         constructor( name, subComponentList = []) {
             super( name, subComponentList );
             this.vm = {
-                chartData1: [
-                     ['Year', 'Sales', 'Expenses'],
-                    ['2013', 1000, 400],
-                    ['2014', 1170, 460],
-                    ['2015', 660, 1120],
-                    ['2016', 1030, 540],
-                ],
+
             }
             this.props = {
                 name: String,

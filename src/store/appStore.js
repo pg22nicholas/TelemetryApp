@@ -4,8 +4,6 @@ Copyright (c) 2022 Nicholas Johnson
 */
 import Vue from 'vue'
 
-
-
 import ExpressConnection from './ExpressConnection.js';
 import FirebaseConnection from './FirebaseConnection.js';
 import TData from './TData' // import POJS model objects
@@ -102,7 +100,7 @@ export default {
                 const session = '001'
                 db.execute(`helloworld/:${id}/:${session}`)
                     .then(result => {
-                        commit('UPDATE_ACTION_SUMMRY', result.payload)
+                        commit('UPDATE_ACTION_SUMMARY', result.payload)
                         resolve(result.status)
                     })
                     .catch(error => {
@@ -122,7 +120,7 @@ export default {
         GET_RECORDS: (state, data) => {
             state.recordList = data;
         },
-        UPDATE_ACTION_SUMMRY: (state, id) => { state.charData = data },
+        UPDATE_ACTION_SUMMARY: (state, id) => { state.charData = data },
         ADD_RECORD: (state, recordData) => { 
             let id = Object.keys(recordData)[0]
             Vue.set(state.recordList, id, recordData[id]) 

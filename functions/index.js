@@ -11,7 +11,8 @@ class TelemetryFunctions {
 
     exports() {
         return {
-            helloWorld: functions.https.onRequest(this.helloWorld)
+            helloWorld: functions.https.onRequest(this.helloWorld),
+            damagePerMap: functions.firestore.collection('Telemetry').onCreate(this.damagerPerMap)
         }
     }
 
@@ -19,6 +20,10 @@ class TelemetryFunctions {
         functions.logger.info("Hello logs!", {structuredData: true});
         response.send("Hello from Firebase!");
       }
+
+    damagerPerMap(snap, context) {
+        
+    }
 }
 const telemetry = new TelemetryFunctions()
 exports = telemetry.exports
