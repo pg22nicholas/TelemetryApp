@@ -93,13 +93,17 @@ export default class FirebaseConnection extends Connection {
     delete(request, data) {
         return new Promise(async (resolve, reject) => {
             try {
-                await deleteDoc(doc(this.db, "telemetry", data.id))
-                resolve({ status: 100 })
+                if (request.includes('/api/tdata/record/')) {
+                    let type = this.getLastParamfromHTTP(request)
+                    let docRef = await doc(this.db, `telemetry/${type}/data/${data.id}`)
+                    await deleteDoc(docRef)
+                    resolve({ status: 100 })
+                }
+                
             } catch(error) {
                 console.log(error)
                 reject(error)
             }
-            
         })
     }
 
