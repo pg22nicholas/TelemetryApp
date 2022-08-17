@@ -22,6 +22,7 @@ export default {
         appTitle: "Game Telemetry Viewer",
         actionData: {},
         recordList: {},
+        typeList: [],
         chartData: [
             ['Year', 'Sales', 'Expenses'],
            ['2013', 1000, 400],
@@ -38,6 +39,7 @@ export default {
         theInfo: state => state.actionData.info,
  
         recordList: state => state.recordList,
+        typeList: state => state.typeList,
         actionSummary: state => state.chartData
     },
 
@@ -65,6 +67,20 @@ export default {
                 try {
                     let validData = await db.read(`/api/tdata/record_list/${data.type}`)
                     commit('GET_RECORDS', validData.data)
+                    resolve(validData);
+                } catch(err) {
+                    console.log(err)
+                    reject(err)
+                }
+
+                
+            })
+        },
+        getTypes({ commit }) {
+            return new Promise(async (resolve, reject) => {
+                try {
+                    let validData = await db.read(`/api/tdata/type_list`)
+                    commit('GET_TYPES', validData.data)
                     resolve(validData);
                 } catch(err) {
                     console.log(err)
@@ -120,6 +136,9 @@ export default {
         },
         GET_RECORDS: (state, data) => {
             state.recordList = data;
+        },
+        GET_TYPES: (state, data) => {
+            state.typeList = data;
         },
         UPDATE_ACTION_SUMMARY: (state, id) => { state.charData = data },
         ADD_RECORD: (state, recordData) => { 
