@@ -106,24 +106,29 @@ export default class FirebaseConnection extends Connection {
     add(request, data) {
         return new Promise(async (resolve, reject) => {
             try {
-                // prevent adding record with no type key
-                if (!data.type) {
-                    reject("Record must have a type key")
-                    return
-                }
+                if (request.includes("/api/tdata/record/")) {
+                    let type = this.getLastParamfromHTTP(request)
 
-                let docTypeRef = await doc(this.db, `telemetry/${data.type}`)
-                let docTypeSnapshot = await getDoc(docTypeRef)
-                // prevent adding data to an invalid type key
-                if (!docTypeSnapshot.exists()) {
-                    reject("Record must have a type that already exists")
-                    return
-                }
+                    // prevent adding record with no type key
+                    if (!type) {
+                        reject("Record must have a type key")
+                        return
+                    }
 
-                // find the data collection and add a new record document in it
-                let collectionDataRef = await collection(this.db, `telemetry/${data.type}/data`)
-                let docDataRef = await addDoc(collectionDataRef, {...data})
-                resolve(docDataRef.id)
+                    data.type = type
+
+                    // prevent adding data to an invalid type key
+                    if (!this.isDocumentExists(`telemetry/${type}`)) {
+                        reject("Record must have a type that already exists")
+                        return
+                    }
+
+                    // find the data collection and add a new record document in it
+                    let collectionDataRef = await collection(this.db, `telemetry/${data.type}/data`)
+                    let docDataRef = await addDoc(collectionDataRef, {...data})
+                    resolve(docDataRef.id)
+                }
+                
             } catch(error) {
                 console.log(error)
                 reject(error)
@@ -151,5 +156,15 @@ export default class FirebaseConnection extends Connection {
         const collectionRef = await collection(this.db, path)
         let collectionQuery = await query(collectionRef)
         return await getDocs(collectionQuery)
+    }
+
+    // checks if a document exists
+    // @param path      firestore path to document
+    // returns          True if the document exists
+    async isDocumentExists(path) {
+        let docTypeRef = await doc(this.db, path)
+        let docTypeSnapshot = await getDoc(docTypeRef)
+        // prevent adding data to an invalid type key
+        return docTypeSnapshot.exists()
     }
 }
