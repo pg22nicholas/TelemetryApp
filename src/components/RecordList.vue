@@ -26,6 +26,10 @@ Copyright (c) 2022 Nicholas Johnson
                 <!--<button id="load-new-page-button">New Records</button>-->
             </div>
 
+            <select>
+                <option v-for="(type) in typeList" :value="type" :key="type" @click="updateSelectedType(type)">{{type}}</option>
+            </select>
+
     </section>
 
 </template>
@@ -39,12 +43,13 @@ Copyright (c) 2022 Nicholas Johnson
             super( name, subComponentList );
 
             this.vm = {
+                selectedType: "",
                 selectedRecordId: -1,
                 searchText: "",
             }
 
-            this.injectGetters(['recordList']);
-            this.injectActions(['deleteRecordFromStore', 'getRecords', 'addRecord'])
+            this.injectGetters(['recordList', 'typeList']);
+            this.injectActions(['deleteRecordFromStore', 'getRecords', 'addRecord', 'getTypes'])
         }
 
         selectRecord(id) {
@@ -62,8 +67,17 @@ Copyright (c) 2022 Nicholas Johnson
             return 'unselected'
         }
 
+        async updateSelectedType(type) {
+            this.selectedType = type
+            await this.getRecords({ type: this.selectedType }) 
+            // select first record on page load 
+            this.selectRecord(Object.keys(this.recordList)[0])
+        }
+
         addNewRecord() {
-            this.addRecord({ recordData: rec, type: 'player' })
+            let newRec = rec
+            newRec.type = this.selectedType
+            this.addRecord({ recordData: newRec, type: this.selectedType })
         }
 
         // delete a record and update the currently selected record if needed
@@ -72,7 +86,7 @@ Copyright (c) 2022 Nicholas Johnson
             let index = arrOfIds.indexOf(id)
             if (index == -1) return;
             
-            await this.deleteRecordFromStore({ id: id, type: "player" })  
+            await this.deleteRecordFromStore({ id: id, type: this.selectedType })  
 
             arrOfIds.splice(index, 1)
 
@@ -97,9 +111,9 @@ Copyright (c) 2022 Nicholas Johnson
         }
 
         async onMounted() {
-            await this.getRecords({ type: 'player' }) 
-            // select first record on page load 
-            this.selectRecord(Object.keys(this.recordList)[0])
+            await this.getTypes()
+            this.updateSelectedType(this.typeList[0])
+            
         }
     }
 
@@ -170,6 +184,18 @@ Copyright (c) 2022 Nicholas Johnson
         align-items: center;
         width: fit-content;
         height: 25px;
+    }
+
+     .add-new-record-button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: fit-content;
+        height: 25px;
+    }
+
+    .type-select {
+
     }
 
     #load-new-page-button {
