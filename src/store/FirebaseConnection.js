@@ -9,7 +9,7 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getAnalytics } from "firebase/analytics";
 
-import { collection, getDocs, getDoc, doc, deleteDoc, addDoc  } from "firebase/firestore"; 
+import { collection, getDocs, getDoc, doc, deleteDoc, addDoc, query  } from "firebase/firestore"; 
 import { resolve } from 'path';
 
 import axios from 'axios'
@@ -61,25 +61,36 @@ export default class FirebaseConnection extends Connection {
     }
 
     read(request) {
-
+        console.log(request)
         return new Promise(async ( resolve, reject ) => {
 
-            
-            let result = {}
             try {
-                const querySnapshot = await getDocs(collection(this.db, "telemetry"));
-                querySnapshot.forEach((doc) => {
-                    let data = doc.data()
-                    data.id = doc.id
-                    console.log(JSON.stringify(doc.data()))
-                    //console.log(`${doc.id} => ${doc.data()}`);
-                    result[doc.id] = data
-                });
+                if (request.includes("record_list")) {
+                    let result = {}
+                    let type = this.getLastParamfromHTTP(request)
+                    const collectionRef = await collection(this.db, `telemetry/${type}/data`)
+                    let collectionQuery = await query(collectionRef)
+                    let querySnapshot = await getDocs(collectionQuery)
+                    querySnapshot.forEach((doc) => {
+                        result[doc.id] = doc.data()
+                    })
+                    resolve({data: result, status: 200})
+                } else {
+                    let collectionDataRef = await collection(this.db, `telemetry`)
+                    let collectionQuery = await query(collectionDataRef)
+                    let querySnapshot = await getDocs(collectionQuery)
+                    let listOfTypes = []
+                    querySnapshot.forEach((doc) => {
+                        listOfTypes.push(doc.id)
+                    })
+                    resolve({data: listOfTypes, status: 200})
+                }
+
             } catch (error) {
                 console.log(error)
                 reject(error)
             }
-            resolve({data: result, status: 200})
+            
         })
     }
 
@@ -126,5 +137,14 @@ export default class FirebaseConnection extends Connection {
 
     callCloudHello() {
 
+    }
+
+    // Hlper for retrieving the type param from an HTTP request
+    getLastParamfromHTTP(request) {
+        console.log(request)
+        let split = request.split("/")
+        let lastSplit = split[split.length - 1]
+        let param = lastSplit.split("?")[0]
+        return param
     }
 }

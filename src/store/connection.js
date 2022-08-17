@@ -19,7 +19,7 @@ export default class Connection {
     }
 
     read(request) {
-        // assume /api/tdata/type_list/:type
+        // assume /api/tdata/type_list
         // assume /api/tdata/record_list/:type
         // assume /api/charts/action_chart
     }

@@ -11,7 +11,7 @@ import TData from './TData' // import POJS model objects
 import { DEBUG } from '../store.js';
 
 let db;
-if (true)
+if (false)
     db = new ExpressConnection()
 else
     db = new FirebaseConnection()
