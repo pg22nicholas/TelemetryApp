@@ -91,5 +91,12 @@ Router.get('/record_list/:type', ( request, response, next ) => {
     next();
 })
 
+// fetch all stored types
+Router.get('/type_list', ( request, response, next ) => {
+    response.send(Object.keys(recordList));
+    next();
+})
+
+
 
 module.exports = Router;
