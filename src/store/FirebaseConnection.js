@@ -47,19 +47,6 @@ export default class FirebaseConnection extends Connection {
 
     }
 
-    execute(request, data) {
-        return new Primise((resolve, reject) => {
-            this.functions.get('helloWorld')
-                .then(data => {
-                    console.log()
-                    resolve(data)
-                })
-                .catch(error => {
-                    reject(error)
-                })
-        })
-    }
-
     read(request) {
         console.log(request)
         return new Promise(async ( resolve, reject ) => {
@@ -138,10 +125,6 @@ export default class FirebaseConnection extends Connection {
                 reject(error)
             }
         })
-    }
-
-    callCloudHello() {
-
     }
 
     // Hlper for retrieving the type param from an HTTP request
