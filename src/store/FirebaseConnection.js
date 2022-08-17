@@ -68,17 +68,13 @@ export default class FirebaseConnection extends Connection {
                 if (request.includes("record_list")) {
                     let result = {}
                     let type = this.getLastParamfromHTTP(request)
-                    const collectionRef = await collection(this.db, `telemetry/${type}/data`)
-                    let collectionQuery = await query(collectionRef)
-                    let querySnapshot = await getDocs(collectionQuery)
+                    let querySnapshot = await this.getCollectionQuerySnapshot(`telemetry/${type}/data`)
                     querySnapshot.forEach((doc) => {
                         result[doc.id] = doc.data()
                     })
                     resolve({data: result, status: 200})
                 } else {
-                    let collectionDataRef = await collection(this.db, `telemetry`)
-                    let collectionQuery = await query(collectionDataRef)
-                    let querySnapshot = await getDocs(collectionQuery)
+                    let querySnapshot = await this.getCollectionQuerySnapshot(`telemetry`)
                     let listOfTypes = []
                     querySnapshot.forEach((doc) => {
                         listOfTypes.push(doc.id)
@@ -146,5 +142,14 @@ export default class FirebaseConnection extends Connection {
         let lastSplit = split[split.length - 1]
         let param = lastSplit.split("?")[0]
         return param
+    }
+
+    // Helper for retrieving a query snapshot of a collection
+    // @param path  firestore path to collection
+    // returns      Collection query snapshot
+    async getCollectionQuerySnapshot(path) {
+        const collectionRef = await collection(this.db, path)
+        let collectionQuery = await query(collectionRef)
+        return await getDocs(collectionQuery)
     }
 }
