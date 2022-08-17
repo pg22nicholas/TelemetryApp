@@ -42,10 +42,10 @@ export default class ExpressConnection extends Connection {
         })
     }
 
-    delete(request, data) {
+    delete(request, data, type) {
         return new Promise((resolve, reject) => {
 
-            this.db.delete(request, {"params": { ...data }} )
+            this.db.delete(request + `/${type}`, {"params": { ...data }} )
                 .then(content => {
                     resolve(content)
                 })

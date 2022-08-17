@@ -10,23 +10,25 @@ const recordList = { player: TData.generateRecordList("player"), enemy: TData.ge
 const Router = Express.Router();
 
 // deletes a single record by ID
-Router.delete('/record', ( request, response, next ) => {
+Router.delete('/record/:type', ( request, response, next ) => {
     
     /*
     { 
         id: Int 
+        type: String
     }
     */
     const params = { ...request.params, ... request.query, ...request.body };
     console.log(params)
 
     let id = params.id
+    let type = params.type
 
     // if id doesn't exist, failure
-    if (!recordList[id]) {
+    if (!recordList[type][id]) {
         return response.status(101).end()
     }
-    delete recordList[id]
+    delete recordList[type][id]
     console.log(recordList)
     response.send("Successfully delete id: " + id);
     next();
@@ -71,6 +73,11 @@ Router.post('/record', ( request, response, next ) => {
 // fetch specific page of records
 Router.get('/record_list/:type', ( request, response, next ) => {
     
+    /*
+    {
+        type: String
+    }
+    */
     const params = { ...request.params }
     console.log(params)
     response.send(recordList[params.type]);

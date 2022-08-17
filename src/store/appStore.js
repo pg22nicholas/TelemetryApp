@@ -48,7 +48,7 @@ export default {
             return new Promise(async( resolve, reject ) => {
 
                 try {
-                    let content = await db.delete('/api/tdata/record', { "id": id  })
+                    let content = await db.delete('/api/tdata/record', { "id": id  }, 'player')
                     commit('DELETE_RECORD', id)
                     resolve(content.status);
                 } catch(error) {

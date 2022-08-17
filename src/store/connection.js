@@ -27,7 +27,7 @@ export default class Connection {
 
     }
 
-    delete(request, data) {
+    delete(request, data, type) {
 
     }
 

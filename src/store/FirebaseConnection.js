@@ -83,7 +83,7 @@ export default class FirebaseConnection extends Connection {
         })
     }
 
-    delete(request, data) {
+    delete(request, data, type) {
         return new Promise(async (resolve, reject) => {
             try {
                 await deleteDoc(doc(this.db, "telemetry", data.id))
