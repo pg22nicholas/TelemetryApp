@@ -28,10 +28,10 @@ export default class ExpressConnection extends Connection {
 
     }
 
-    read(request) {
+    read(request, type) {
         return new Promise(( resolve, reject ) => {
 
-            this.db.get(request)
+            this.db.get(request + `/${type}`)
                 .then(content => {
                     resolve(content);
                 })

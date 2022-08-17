@@ -18,7 +18,7 @@ export default class Connection {
 
     }
 
-    read(request) {
+    read(request, type) {
         // assume request is /api/tdata/record_list
         // assume request is /api/charts/action-chart
     }

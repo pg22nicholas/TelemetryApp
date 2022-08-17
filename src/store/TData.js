@@ -35,10 +35,11 @@ export default class TData {
     }
 
     // generate a list of recs for testing
-    static generateRecordList() {
+    static generateRecordList(type) {
         let result = {}
         for (let i = 0; i < 10; i++) {
             let data = {...new TData().rec }
+            data.type = type
             data.id = i;
             result[i] = data
             index++

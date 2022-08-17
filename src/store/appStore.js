@@ -11,7 +11,7 @@ import TData from './TData' // import POJS model objects
 import { DEBUG } from '../store.js';
 
 let db;
-if (false)
+if (true)
     db = new ExpressConnection()
 else
     db = new FirebaseConnection()
@@ -62,15 +62,16 @@ export default {
 
                 // TODO: data sent back in different form
                 //  - convert to a list of records instead of object???
-                let validData = await db.read('/api/tdata/record_list')
-                    .catch (errorData => {
-                        console.log(errorData)
-                        reject();
-                    })
+                try {
+                    let validData = await db.read(`/api/tdata/record_list`, 'player')
+                    commit('GET_RECORDS', validData.data)
+                    resolve(validData);
+                } catch(err) {
+                    console.log(err)
+                    reject(err)
+                }
 
-                console.log("data" + validData)
-                commit('GET_RECORDS', validData.data)
-                resolve(validData);
+                
             })
         },
         addRecord({ commit }, recordData) {

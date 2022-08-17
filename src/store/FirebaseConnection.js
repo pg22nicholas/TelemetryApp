@@ -60,7 +60,7 @@ export default class FirebaseConnection extends Connection {
         })
     }
 
-    read(request) {
+    read(request, type) {
 
         return new Promise(async ( resolve, reject ) => {
 
@@ -106,7 +106,6 @@ export default class FirebaseConnection extends Connection {
                 }
 
                 let docTypeRef = await doc(this.db, `telemetry/${data.type}`)
-                console.log("doc ref: ", docTypeRef)
                 let docTypeSnapshot = await getDoc(docTypeRef)
                 // prevent adding data to an invalid type key
                 if (!docTypeSnapshot.exists()) {

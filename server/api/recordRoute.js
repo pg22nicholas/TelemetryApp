@@ -5,7 +5,7 @@ const Result = require('../../src/mixins/result.js')
 import TData from "../../src/store/TData.js"
 import { getNewIndex } from "../../src/store/TData.js"
 
-const recordList = TData.generateRecordList()
+const recordList = { player: TData.generateRecordList("player"), enemy: TData.generateRecordList("enemy") }
 
 const Router = Express.Router();
 
@@ -69,9 +69,11 @@ Router.post('/record', ( request, response, next ) => {
 })
 
 // fetch specific page of records
-Router.get('/record_list', ( request, response, next ) => {
+Router.get('/record_list/:type', ( request, response, next ) => {
     
-    response.send(recordList);
+    const params = { ...request.params }
+    console.log(params)
+    response.send(recordList[params.type]);
     next();
 })
 
