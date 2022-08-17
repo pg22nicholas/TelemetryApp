@@ -9,7 +9,7 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getAnalytics } from "firebase/analytics";
 
-import { collection, getDocs, doc, deleteDoc, addDoc  } from "firebase/firestore"; 
+import { collection, getDocs, getDoc, doc, deleteDoc, addDoc  } from "firebase/firestore"; 
 import { resolve } from 'path';
 
 import axios from 'axios'
@@ -99,8 +99,25 @@ export default class FirebaseConnection extends Connection {
     add(request, data) {
         return new Promise(async (resolve, reject) => {
             try {
-                let docRef = await addDoc(collection(this.db, "telemetry"), {...data})
-                resolve(docRef.id)
+                // prevent adding record with no type key
+                if (!data.type) {
+                    reject("Record must have a type key")
+                    return
+                }
+
+                let docTypeRef = await doc(this.db, `telemetry/${data.type}`)
+                console.log("doc ref: ", docTypeRef)
+                let docTypeSnapshot = await getDoc(docTypeRef)
+                // prevent adding data to an invalid type key
+                if (!docTypeSnapshot.exists()) {
+                    reject("Record must have a type that already exists")
+                    return
+                }
+
+                // find the data collection and add a new record document in it
+                let collectionDataRef = await collection(this.db, `telemetry/${data.type}/data`)
+                let docDataRef = await addDoc(collectionDataRef, {...data})
+                resolve(docDataRef.id)
             } catch(error) {
                 console.log(error)
                 reject(error)

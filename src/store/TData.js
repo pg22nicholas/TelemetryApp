@@ -4,6 +4,7 @@
 // temp data
 export const rec = {
     // event triggered telemetry data
+    type: "player",
     id: -1,                                     // auto generated unique rec id
     version: "2022.07.06-1234",                 // (string from data matching game)-session
     sessionId: 1234,                            // session within version
