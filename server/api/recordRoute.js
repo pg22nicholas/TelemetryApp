@@ -14,7 +14,9 @@ Router.delete('/record/:type', ( request, response, next ) => {
     
     /*
     { 
-        id: Int 
+        params: {
+            id: Int 
+        }
         type: String
     }
     */
@@ -35,35 +37,39 @@ Router.delete('/record/:type', ( request, response, next ) => {
 })
 
 // adds a new record
-Router.post('/record', ( request, response, next ) => {
+Router.post('/record/:type', ( request, response, next ) => {
 
     /*
     { 
-        id: Int
-        version: String            
-        sessionId: Int
-        eventId: EventTriggerEnum
-        location: { X: Int, Y: Int },  
-        mapName: String
-        actor: {
+        type: String
+        params: {
             id: Int
-            state: AnimationStateEnum
-            health: Int
-            damageDone: Int
-            weapon: Int
-            heading: { X: Int, Y: Int, Z: Int },        
-            lookingVector: { X: Int, Y: Int, Z: Int },    
-            spawnAt: { X: Int, Y: Int, Z: Int },          
-            travelled: Int
-        }   
+            version: String            
+            sessionId: Int
+            eventId: EventTriggerEnum
+            location: { X: Int, Y: Int },  
+            mapName: String
+            actor: {
+                id: Int
+                state: AnimationStateEnum
+                health: Int
+                damageDone: Int
+                weapon: Int
+                heading: { X: Int, Y: Int, Z: Int },        
+                lookingVector: { X: Int, Y: Int, Z: Int },    
+                spawnAt: { X: Int, Y: Int, Z: Int },          
+                travelled: Int
+            }  
+        } 
     }
     */
     const params = { ...request.params, ... request.query, ...request.body};
 
     let id = getNewIndex()
-    recordList[id] = { ...params.params }
+    let type = params.type
+    recordList[type][id] = { ...params.params }
     // update id to newly stored id
-    recordList[id].id = id
+    recordList[type][id].id = id
 
     // add single rec from client
     response.send({ id: id });

@@ -96,7 +96,7 @@ export default class FirebaseConnection extends Connection {
         })
     }
 
-    add(request, data) {
+    add(request, data, type) {
         return new Promise(async (resolve, reject) => {
             try {
                 // prevent adding record with no type key

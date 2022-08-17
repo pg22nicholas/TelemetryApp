@@ -31,7 +31,7 @@ export default class Connection {
 
     }
 
-    add(request, data) {
+    add(request, data, type) {
 
     }
 }

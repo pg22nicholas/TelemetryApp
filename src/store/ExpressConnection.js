@@ -56,11 +56,11 @@ export default class ExpressConnection extends Connection {
         })
     }
 
-    add(request, data) {
+    add(request, data, type) {
         console.log(data)
         return new Promise((resolve, reject) => {
 
-            this.db.post(request, {"params": { ...data }} )
+            this.db.post(request + `/${type}`, {"params": { ...data }} )
                 .then(content => {
                     resolve(content.data.id)
                 })

@@ -63,7 +63,7 @@ export default {
                 // TODO: data sent back in different form
                 //  - convert to a list of records instead of object???
                 try {
-                    let validData = await db.read(`/api/tdata/record_list`, 'player')
+                    let validData = await db.read(`/api/tdata/record_list`, 'enemy')
                     commit('GET_RECORDS', validData.data)
                     resolve(validData);
                 } catch(err) {
@@ -78,7 +78,7 @@ export default {
             return new Promise(async (resolve, reject) => {
 
                 try {
-                    let id = await db.add('/api/tdata/record', recordData)
+                    let id = await db.add('/api/tdata/record', recordData, 'enemy')
                                         
                     let result = {};
                     recordData.id = id
