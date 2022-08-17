@@ -60,7 +60,7 @@ export default class FirebaseConnection extends Connection {
         })
     }
 
-    read(request, type) {
+    read(request) {
 
         return new Promise(async ( resolve, reject ) => {
 
@@ -83,7 +83,7 @@ export default class FirebaseConnection extends Connection {
         })
     }
 
-    delete(request, data, type) {
+    delete(request, data) {
         return new Promise(async (resolve, reject) => {
             try {
                 await deleteDoc(doc(this.db, "telemetry", data.id))
@@ -96,7 +96,7 @@ export default class FirebaseConnection extends Connection {
         })
     }
 
-    add(request, data, type) {
+    add(request, data) {
         return new Promise(async (resolve, reject) => {
             try {
                 // prevent adding record with no type key

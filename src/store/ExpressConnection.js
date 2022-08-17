@@ -28,10 +28,10 @@ export default class ExpressConnection extends Connection {
 
     }
 
-    read(request, type) {
+    read(request) {
         return new Promise(( resolve, reject ) => {
 
-            this.db.get(request + `/${type}`)
+            this.db.get(request)
                 .then(content => {
                     resolve(content);
                 })
@@ -42,10 +42,10 @@ export default class ExpressConnection extends Connection {
         })
     }
 
-    delete(request, data, type) {
+    delete(request, data) {
         return new Promise((resolve, reject) => {
 
-            this.db.delete(request + `/${type}`, {"params": { ...data }} )
+            this.db.delete(request, {"params": { ...data }} )
                 .then(content => {
                     resolve(content)
                 })
@@ -56,11 +56,11 @@ export default class ExpressConnection extends Connection {
         })
     }
 
-    add(request, data, type) {
+    add(request, data) {
         console.log(data)
         return new Promise((resolve, reject) => {
 
-            this.db.post(request + `/${type}`, {"params": { ...data }} )
+            this.db.post(request, {"params": { ...data }} )
                 .then(content => {
                     resolve(content.data.id)
                 })

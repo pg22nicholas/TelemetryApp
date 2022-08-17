@@ -26,6 +26,7 @@ Router.delete('/record/:type', ( request, response, next ) => {
     let id = params.id
     let type = params.type
 
+    console.log(JSON.stringify(recordList))
     // if id doesn't exist, failure
     if (!recordList[type][id]) {
         return response.status(101).end()

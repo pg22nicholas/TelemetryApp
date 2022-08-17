@@ -44,12 +44,12 @@ export default {
     // PUBLIC: injected into components
     // called to do things to the state via ajax and mutations
     actions: {
-        deleteRecordFromStore( {commit }, id) {
+        deleteRecordFromStore( {commit }, data) {
             return new Promise(async( resolve, reject ) => {
 
                 try {
-                    let content = await db.delete('/api/tdata/record', { "id": id  }, 'player')
-                    commit('DELETE_RECORD', id)
+                    let content = await db.delete(`/api/tdata/record/${data.type}`, { "id": data.id  })
+                    commit('DELETE_RECORD', data.id)
                     resolve(content.status);
                 } catch(error) {
                     console.log(error)
@@ -57,13 +57,13 @@ export default {
                 }
             })
         },
-        getRecords({ commit }) {
+        getRecords({ commit }, data) {
             return new Promise(async (resolve, reject) => {
 
                 // TODO: data sent back in different form
                 //  - convert to a list of records instead of object???
                 try {
-                    let validData = await db.read(`/api/tdata/record_list`, 'enemy')
+                    let validData = await db.read(`/api/tdata/record_list/${data.type}`)
                     commit('GET_RECORDS', validData.data)
                     resolve(validData);
                 } catch(err) {
@@ -74,15 +74,15 @@ export default {
                 
             })
         },
-        addRecord({ commit }, recordData) {
+        addRecord({ commit }, data) {
             return new Promise(async (resolve, reject) => {
 
                 try {
-                    let id = await db.add('/api/tdata/record', recordData, 'enemy')
+                    let id = await db.add(`/api/tdata/record/${data.type}`, data.recordData)
                                         
                     let result = {};
-                    recordData.id = id
-                    result[id] = {...recordData}
+                    data.recordData.id = id
+                    result[id] = {...data.recordData}
                     commit('ADD_RECORD', result)
                     
                     resolve(id);

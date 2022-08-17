@@ -63,8 +63,7 @@ Copyright (c) 2022 Nicholas Johnson
         }
 
         addNewRecord() {
-            let newRecord = rec
-            this.addRecord(rec)
+            this.addRecord({ recordData: rec, type: 'player' })
         }
 
         // delete a record and update the currently selected record if needed
@@ -73,7 +72,7 @@ Copyright (c) 2022 Nicholas Johnson
             let index = arrOfIds.indexOf(id)
             if (index == -1) return;
             
-            await this.deleteRecordFromStore(id)  
+            await this.deleteRecordFromStore({ id: id, type: "player" })  
 
             arrOfIds.splice(index, 1)
 
@@ -91,9 +90,6 @@ Copyright (c) 2022 Nicholas Johnson
 
                 this.selectedRecordId = arrOfIds[index]
             }
-
-            // force an update on the specific record
-            //this.recordList[this.selectedRecordId].id = this.selectedRecordId
         }
 
         newSearchInput() {
@@ -101,7 +97,7 @@ Copyright (c) 2022 Nicholas Johnson
         }
 
         async onMounted() {
-            await this.getRecords() 
+            await this.getRecords({ type: 'player' }) 
             // select first record on page load 
             this.selectRecord(Object.keys(this.recordList)[0])
         }
