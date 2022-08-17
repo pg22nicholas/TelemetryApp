@@ -26,8 +26,8 @@ Copyright (c) 2022 Nicholas Johnson
                 <!--<button id="load-new-page-button">New Records</button>-->
             </div>
 
-            <select>
-                <option v-for="(type) in typeList" :value="type" :key="type" @click="updateSelectedType(type)">{{type}}</option>
+            <select v-on:change="updateSelectedType($event.target.value)">
+                <option v-for="(type) in typeList" :value="type" :key="type">{{type}}</option>
             </select>
 
     </section>
@@ -68,6 +68,7 @@ Copyright (c) 2022 Nicholas Johnson
         }
 
         async updateSelectedType(type) {
+            console.log(type)
             this.selectedType = type
             await this.getRecords({ type: this.selectedType }) 
             // select first record on page load 
