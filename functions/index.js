@@ -12,7 +12,9 @@ class TelemetryFunctions {
     exports() {
         return {
             helloWorld: functions.https.onRequest(this.helloWorld),
-            damagePerMap: functions.firestore.collection('Telemetry').onCreate(this.damagerPerMap)
+            damagePerMap: functions.firestore.collection('Telemetry').onCreate(this.damagerPerMap),
+            testFunc: functions.pubsub.schedule('every 1 minutes').onRun(this.testScheduleFunc),
+              
         }
     }
 
@@ -23,6 +25,10 @@ class TelemetryFunctions {
 
     damagerPerMap(snap, context) {
         
+    }
+
+    testScheduleFunc(context) {
+        console.log("test schedule func")
     }
 }
 const telemetry = new TelemetryFunctions()
