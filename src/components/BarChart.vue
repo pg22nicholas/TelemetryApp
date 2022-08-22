@@ -1,5 +1,5 @@
 <!--
-<t-bar-chart :data='dataObject/>
+<t-bar-chart :chartIndex=Number :chartType=String/>
 
 Copyright (C) Nicholas Johnson 2022
 -->
