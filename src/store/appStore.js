@@ -7,6 +7,7 @@ import Vue from 'vue'
 import ExpressConnection from './ExpressConnection.js';
 import FirebaseConnection from './FirebaseConnection.js';
 import TData from './TData' // import POJS model objects
+import { ChartTypes } from '../store/ChartData.js'
 
 import { DEBUG } from '../store.js';
 
@@ -123,9 +124,12 @@ export default {
                 let index = params.index
                 let chartType = params.chartType
                 try {
-                    let result = await db.read_chart("/api/charts/player_damage")
-                    let chartArray =    [['player', 'Crow', 'Pheonix'],
-                                        ['', result.data.crow_player, result.data.pheonix_player]]
+                    if (!chartType || !ChartTypes[chartType]) {
+                        reject("Invalid ChartType: " + chartType)
+                    }
+                    let ChartData = ChartTypes[chartType]
+                    let result = await db.read_chart(ChartData.endpoint)
+                    let chartArray = ChartData.chartDataStruture({ ...result.data })
                     commit('UPDATE_ACTION_SUMMARY', { index: index, data: chartArray })
                     resolve()
                 } catch (error) {

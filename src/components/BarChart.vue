@@ -9,9 +9,9 @@ Copyright (C) Nicholas Johnson 2022
         <h3>{{ title }}</h3>
         <GChart
             class="chart"
-            type="BarChart"
+            :type="chartTypes[chartType].type"
             :data="actionSummary[chartIndex]"
-            :options="chartOptions"
+            :options="chartTypes[chartType].chartOptions"
          />
     </section>
 
@@ -19,6 +19,7 @@ Copyright (C) Nicholas Johnson 2022
 <script>
     import Controller from '@/mixins/controller'
     import { GChart } from 'vue-google-charts/legacy'
+    import { ChartTypes } from '../store/ChartData.js'
 
     class BarChartController extends Controller {
 
@@ -27,15 +28,11 @@ Copyright (C) Nicholas Johnson 2022
 
             this.vm = {
                 title: "Bar Chart",
-                chartOptions: {
-                    title: 'Character Damage Numbers',
-                    hAxis: { title: 'Damage', titleTextStyle: { color: '#333' } },
-                    vAxis: { minValue: 0 },
-                    chartArea: { width: '50%', height: '50%' },
-                }
+                chartTypes: ChartTypes
             }
 
             this.props = {
+                chartType: String,
                 chartIndex: Number,
             }
 
@@ -44,7 +41,7 @@ Copyright (C) Nicholas Johnson 2022
         }
 
         async onMounted() {
-            await this.retrieveActionSummary({ index: 0, chartType: "" })
+            await this.retrieveActionSummary({ index: 0, chartType: "player_damage" })
         }
     }
 

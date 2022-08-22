@@ -1,5 +1,4 @@
 // Copyright (c) 2022 Nicholas Johnson
-// Client side TData copy
 
 // temp data
 export const rec = {
