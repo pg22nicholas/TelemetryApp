@@ -11,7 +11,7 @@ Copyright (C) Nicholas Johnson 2022
         <h3>Charts</h3>
         <div class="container chart-area">
             <div class="chart chart-1">
-                <t-bar-chart :data="actionSummary"/>
+                <t-bar-chart :chartIndex="0"/>
             </div> 
              <div class="chart chart-2">
                 this is where the charts go

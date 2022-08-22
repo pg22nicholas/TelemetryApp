@@ -10,7 +10,7 @@ Copyright (C) Nicholas Johnson 2022
         <GChart
             class="chart"
             type="BarChart"
-            :data=data
+            :data="actionSummary[chartIndex]"
             :options="chartOptions"
          />
     </section>
@@ -28,17 +28,18 @@ Copyright (C) Nicholas Johnson 2022
             this.vm = {
                 title: "Bar Chart",
                 chartOptions: {
-                    title: 'Company Performance',
-                    hAxis: { title: 'Year', titleTextStyle: { color: '#333' } },
+                    title: 'Character Damage Numbers',
+                    hAxis: { title: 'Damage', titleTextStyle: { color: '#333' } },
                     vAxis: { minValue: 0 },
                     chartArea: { width: '50%', height: '50%' },
                 }
-      
             }
 
             this.props = {
-                data: Array
+                chartIndex: Number,
             }
+
+            this.injectGetters(['actionSummary']);
         }
     }
 
