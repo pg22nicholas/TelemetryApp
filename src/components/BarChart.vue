@@ -6,7 +6,7 @@ Copyright (C) Nicholas Johnson 2022
 <template>
 
     <section class="chart-container">  <!-- Just one main element per template -->
-        <h3>{{ title }}</h3>
+        <h3>{{ chartTypes[chartType].title }}</h3>
         <GChart
             class="chart"
             :type="chartTypes[chartType].type"
@@ -27,7 +27,6 @@ Copyright (C) Nicholas Johnson 2022
             super( name, subComponentList )
 
             this.vm = {
-                title: "Bar Chart",
                 chartTypes: ChartTypes
             }
 

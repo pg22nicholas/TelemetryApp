@@ -2,6 +2,7 @@
 
 export const ChartTypes = {
     player_damage: {
+        title: "Damage Chart",
         type: "BarChart",
         endpoint: "/api/charts/player_damage",
         chartOptions: {
