@@ -86,7 +86,6 @@ Router.get('/record_list/:type', ( request, response, next ) => {
     }
     */
     const params = { ...request.params }
-    console.log(params)
     response.send(recordList[params.type]);
     next();
 })

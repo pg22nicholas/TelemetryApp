@@ -39,7 +39,12 @@ Copyright (C) Nicholas Johnson 2022
                 chartIndex: Number,
             }
 
-            this.injectGetters(['actionSummary']);
+            this.injectGetters(['actionSummary'])
+            this.injectActions(['retrieveActionSummary'])
+        }
+
+        async onMounted() {
+            await this.retrieveActionSummary({ index: 0, chartType: "" })
         }
     }
 

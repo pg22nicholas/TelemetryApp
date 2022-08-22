@@ -71,4 +71,18 @@ export default class ExpressConnection extends Connection {
         })
     }
 
+    read_chart(request) {
+        return new Promise((resolve, reject) => {
+
+            this.db.get(request)
+                .then(content => {
+                    resolve(content)
+                })
+                .catch(error => {
+                    console.log(error)
+                    reject(error);
+                })
+        })
+    }
+
 }

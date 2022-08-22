@@ -41,10 +41,6 @@ Copyright (C) Nicholas Johnson 2022
             this.props = {
                 name: String,
             }
-
-            
-            this.injectGetters(['actionSummary'])
-            this.injectActions(['refreshActionSummary'])
         }
 
         refreshChar() {

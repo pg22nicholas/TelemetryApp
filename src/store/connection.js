@@ -31,4 +31,8 @@ export default class Connection {
     add(request, data) {
         // assume /api/tdata/record/:type
     }
+
+    read_chart(request) {
+        // assume /api/charts/player_damage
+    }
 }
