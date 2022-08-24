@@ -129,9 +129,18 @@ export default class FirebaseConnection extends Connection {
 
     // Hlper for retrieving the type param from an HTTP request
     getLastParamfromHTTP(request) {
+        return this.getParamAtEndFromHTTP(request, 0)
+    }
+
+    /**
+     * Get the params in http request from the end of the request
+     * @param {Int} paramsFromLast  Number of params from the end to retrieve. 0 retrieves last param
+     * @returns                     Param paramsFromLast from the end of requet
+     */
+    getParamAtEndFromHTTP(request, paramsFromLast) {
         console.log(request)
         let split = request.split("/")
-        let lastSplit = split[split.length - 1]
+        let lastSplit = split[split.length - 1 - paramsFromLast]
         let param = lastSplit.split("?")[0]
         return param
     }
@@ -153,5 +162,28 @@ export default class FirebaseConnection extends Connection {
         let docTypeSnapshot = await getDoc(docTypeRef)
         // prevent adding data to an invalid type key
         return docTypeSnapshot.exists()
+    }
+
+    read_chart(request) {
+        return new Promise(async (resolve, reject) => {
+
+            let objectType = this.getParamAtEndFromHTTP(request, 1)
+            let chartType = this.getParamAtEndFromHTTP(request, 0)
+            let docSnap;
+            try {
+                let path = `telemetry/${objectType}`
+                const docRef = await doc(this.db, path);
+                docSnap = await getDoc(docRef);
+            } catch (error) {
+                console.log(error)
+                reject(error)
+            }
+           
+            if (docSnap.exists()) {
+                resolve({ data: docSnap.data()[chartType], status: 200 })
+            } else {
+                reject("document doesn't exist")
+            }
+        })
     }
 }
