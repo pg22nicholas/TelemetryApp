@@ -8,7 +8,7 @@ const recordList = TData.generateRecordList()
 
 const Router = Express.Router();
 
-Router.get('/player_damage', (request, response, next) => {
+Router.get('/player/player_damage', (request, response, next) => {
     response.send({ crow_player: 100, pheonix_player: 1000 })
     next()
 })

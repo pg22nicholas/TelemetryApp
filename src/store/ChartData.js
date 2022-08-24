@@ -4,7 +4,7 @@ export const ChartTypes = {
     player_damage: {
         title: "Damage Chart",
         type: "BarChart",
-        endpoint: "/api/charts/player_damage",
+        endpoint: "/api/charts/player/player_damage",
         chartOptions: {
             title: 'Character Damage Numbers',
             hAxis: { title: 'Damage', titleTextStyle: { color: '#333' } },

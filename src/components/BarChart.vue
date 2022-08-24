@@ -40,7 +40,7 @@ Copyright (C) Nicholas Johnson 2022
         }
 
         async onMounted() {
-            await this.retrieveActionSummary({ index: 0, chartType: "player_damage" })
+            await this.retrieveActionSummary({ index: 0, chartType: this.chartType })
         }
     }
 

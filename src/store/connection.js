@@ -33,6 +33,6 @@ export default class Connection {
     }
 
     read_chart(request) {
-        // assume /api/charts/player_damage
+        // assume /api/charts/player/player_damage
     }
 }
