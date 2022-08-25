@@ -19,19 +19,20 @@ export default class Connection {
     }
 
     read(request) {
-        // assume request is /api/tdata/record_list
-        // assume request is /api/charts/action-chart
-    }
-
-    update(request, data) {
-
+        // assume /api/tdata/type_list
+        // assume /api/tdata/record_list/:type
+        // assume /api/charts/action_chart
     }
 
     delete(request, data) {
-
+        // assume /api/tdata/record/:type
     }
 
     add(request, data) {
+        // assume /api/tdata/record/:type
+    }
 
+    read_chart(request) {
+        // assume /api/charts/player/player_damage
     }
 }

@@ -1,9 +1,9 @@
 // Copyright (c) 2022 Nicholas Johnson
-// Client side TData copy
 
 // temp data
 export const rec = {
     // event triggered telemetry data
+    type: "player",
     id: -1,                                     // auto generated unique rec id
     version: "2022.07.06-1234",                 // (string from data matching game)-session
     sessionId: 1234,                            // session within version
@@ -11,10 +11,11 @@ export const rec = {
     location: { X: 0, Y: 0 },                   // location at event call   
     mapName: "base_map",                        // Name of map
     actor: {
+        player_type: "crow_player",
         id: 0,                                  // actor id within session
         state: 0,                               // Animation state (ENUM)
         health: 100,                            // Current health
-        damageDone: 0,                          // Damage done over actor's lifetime
+        damageDone: 50,                          // Damage done over actor's lifetime
         weapon: 2,                              // Current weapon equipped
         heading: { X: 0, Y: 0, Z: 0 },          // Vector where actor is going
         lookingVector: { X: 0, Y: 0, Z: 0 },    // Direction actor is looking (Normalized)
@@ -34,10 +35,11 @@ export default class TData {
     }
 
     // generate a list of recs for testing
-    static generateRecordList() {
+    static generateRecordList(type) {
         let result = {}
         for (let i = 0; i < 10; i++) {
             let data = {...new TData().rec }
+            data.type = type
             data.id = i;
             result[i] = data
             index++
