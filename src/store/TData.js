@@ -11,10 +11,11 @@ export const rec = {
     location: { X: 0, Y: 0 },                   // location at event call   
     mapName: "base_map",                        // Name of map
     actor: {
+        player_type: "crow_player",
         id: 0,                                  // actor id within session
         state: 0,                               // Animation state (ENUM)
         health: 100,                            // Current health
-        damageDone: 0,                          // Damage done over actor's lifetime
+        damageDone: 50,                          // Damage done over actor's lifetime
         weapon: 2,                              // Current weapon equipped
         heading: { X: 0, Y: 0, Z: 0 },          // Vector where actor is going
         lookingVector: { X: 0, Y: 0, Z: 0 },    // Direction actor is looking (Normalized)
