@@ -6,10 +6,9 @@ import Connection from './connection.js'
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
 import { getAnalytics } from "firebase/analytics";
 
-import { collection, getDocs, getDoc, doc, deleteDoc, addDoc, query  } from "firebase/firestore"; 
+import { collection, getDocs, getDoc, doc, deleteDoc, addDoc, query, getFirestore, connectFirestoreEmulator  } from "firebase/firestore"; 
 import { resolve } from 'path';
 
 import axios from 'axios'
@@ -32,11 +31,18 @@ export default class FirebaseConnection extends Connection {
             appId: "1:899925976647:web:0b1160ff53ed2a61dd3362",
             measurementId: "G-2S0K235ZR3"
         }
-        // TODO: find proper URL
-        const functionsURL = `https://us-central1-${this.fbConfig.projectId}.cloudfunctions.net`
-        this.functions = axios.create({baseURL: functionsURL})
-        this.fb = initializeApp(this.fbConfig)
-        this.db = getFirestore(this.fb)
+
+        if (true) {
+            this.fb = initializeApp(this.fbConfig)
+            this.db = getFirestore(this.fb)
+            connectFirestoreEmulator(this.db, 'localhost', 4040)
+        } else {
+             // TODO: find proper URL
+            const functionsURL = `https://us-west1-${this.fbConfig.projectId}.cloudfunctions.net`
+            this.functions = axios.create({baseURL: functionsURL})
+            this.fb = initializeApp(this.fbConfig)
+            this.db = getFirestore(this.fb)
+        }
     }
 
     open() {

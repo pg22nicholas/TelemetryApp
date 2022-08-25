@@ -9,10 +9,8 @@ import FirebaseConnection from './FirebaseConnection.js';
 import TData from './TData' // import POJS model objects
 import { ChartTypes } from '../store/ChartData.js'
 
-import { DEBUG } from '../store.js';
-
 let db;
-if (true)
+if (false)
     db = new ExpressConnection()
 else
     db = new FirebaseConnection()

@@ -6,8 +6,6 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 Vue.use( Vuex )
 
-export const DEBUG = true;
-
 // Modules
 import ModelStore from '@/store/appStore.js'
 
