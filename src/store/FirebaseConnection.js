@@ -32,7 +32,7 @@ export default class FirebaseConnection extends Connection {
             measurementId: "G-2S0K235ZR3"
         }
 
-        if (true) {
+        if (false) {
             this.fb = initializeApp(this.fbConfig)
             this.db = getFirestore(this.fb)
             connectFirestoreEmulator(this.db, 'localhost', 4040)

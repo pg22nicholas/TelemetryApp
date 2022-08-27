@@ -31,7 +31,7 @@ Router.post('/record_list', ( request, response, next ) => {
     for (let record in data) {
         // TODO: Send data to firebase
         console.log(data[record].objectType, data[record].sessionID)
-        //db.add(`/api/tdata/record/${record.objectType}`, record)
+        db.add(`/api/tdata/record/${data[record].objectType}`, data[record])
     }
     
     response.send()
