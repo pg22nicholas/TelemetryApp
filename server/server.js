@@ -14,6 +14,7 @@ const Result = require('../src/mixins/result')
 
 const TelemetryData = require('./api/recordRoute.js')
 const Charts = require('./api/chartRoute')
+const Firebase = require('./api/firebaseRoute.js')
 
 const { response } = require('express');
 
@@ -44,6 +45,7 @@ class Server {
             .use(CORS( corsOptions )).options('/*', this.corsHandler)
             .use('/api/tdata', TelemetryData)
             .use('/api/charts', Charts)
+            .use('/api/firebase', Firebase)
 
             // this.api.get("/", (request, response, next )=> {
             //     response.send("../docs/index.html")
